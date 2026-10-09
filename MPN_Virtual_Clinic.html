@@ -273,6 +273,10 @@ details.plain[open]>summary::before{transform:rotate(90deg);}
 .qa .qa-ic{font-size:20px;}
 .qa b{font-size:13.5px;}
 .qa span{font-size:11.5px;color:var(--muted);}
+.start-card{border:2px dashed var(--brand);margin-bottom:16px;}
+.start-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.start-grid .qa{padding:18px;}
+.start-grid .qa b{font-size:15px;}
 .setup-card{border:2px solid var(--brand);background:linear-gradient(135deg,var(--brand-soft),var(--surface) 60%);margin-bottom:16px;}
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 14px;padding:0;list-style:none;counter-reset:s;}
 .steps li{counter-increment:s;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 14px 14px 52px;position:relative;font-size:13.5px;}
@@ -408,6 +412,18 @@ html.dark .alert-warning{color:#facc15;}
 .settings-grid{columns:3 400px;column-gap:16px;}
 .settings-grid .card{break-inside:avoid;margin:0 0 16px;display:inline-block;width:100%;}
 
+/* modal */
+.modal-back{position:fixed;inset:0;z-index:9000;background:rgba(6,10,20,.5);backdrop-filter:blur(3px);display:grid;place-items:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .2s;}
+.modal-back.open{opacity:1;pointer-events:auto;}
+.modal{width:min(480px,100%);background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);box-shadow:var(--shadow-3);padding:24px;transform:translateY(10px) scale(.97);transition:transform .25s cubic-bezier(.2,.8,.2,1);}
+.modal-back.open .modal{transform:none;}
+.modal-icon{width:46px;height:46px;border-radius:14px;background:var(--brand-soft);display:grid;place-items:center;font-size:22px;margin-bottom:12px;}
+.modal h3{margin:0 0 6px;font-size:18px;font-weight:800;}
+.modal-msg p{margin:0 0 8px;color:var(--text-2);font-size:14.5px;}
+.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px;}
+.btn.danger-solid{background:var(--red);color:#fff;border-color:transparent;}
+.btn.danger-solid:hover{filter:brightness(1.08);}
+
 /* toasts */
 .toast-container{position:fixed;bottom:20px;right:20px;z-index:9999;display:flex;flex-direction:column-reverse;gap:8px;}
 .toast{display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:12px;font-size:13.5px;font-weight:700;color:#fff;box-shadow:var(--shadow-3);animation:toastIn .3s cubic-bezier(.2,.8,.2,1),toastOut .3s ease 3.9s forwards;max-width:440px;}
@@ -530,6 +546,15 @@ html.dark .alert-warning{color:#facc15;}
           </ol>
           <button class="btn primary big" data-act="connect">📁 Connect OneDrive folder</button>
           <span class="small" style="margin-left:10px;">Next time you'll just click <strong>Reconnect</strong>.</span>
+        </div>
+
+        <div class="card start-card hidden" id="startCard">
+          <div class="card-header"><h3><span class="ic">🚀</span> No patients yet – choose how to start</h3></div>
+          <div class="start-grid">
+            <button class="qa" data-act="load-demo"><span class="qa-ic">🧪</span><b>Load 8 demo patients</b><span>Fictional patients with blood history, ready to try a full clinic</span></button>
+            <button class="qa" data-act="open-import"><span class="qa-ic">⬆️</span><b>Import from CSV</b><span>Bring in your existing patient list (template provided)</span></button>
+            <button class="qa" data-act="new-patient"><span class="qa-ic">👤</span><b>Add a patient</b><span>Type in one patient's details</span></button>
+          </div>
         </div>
 
         <div class="hero">
@@ -949,6 +974,12 @@ html.dark .alert-warning{color:#facc15;}
   </div>
 </aside>
 
+<div class="modal-back" id="modalBack"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-icon" id="modalIcon">❓</div>
+  <h3 id="modalTitle">Please confirm</h3>
+  <div class="modal-msg"><p id="modalMsg"></p></div>
+  <div class="modal-actions"><button class="btn ghost" id="modalCancel">Cancel</button><button class="btn primary" id="modalOk">OK</button></div>
+</div></div>
 <div class="toast-container" id="toastContainer"></div>
 <script>
 (function(){
@@ -1042,6 +1073,23 @@ function savePrefs(){try{localStorage.setItem(LS_PREFS,JSON.stringify(prefs));}c
 async function copyText(text){
   try{await navigator.clipboard.writeText(text);return true;}
   catch(e){const t=document.createElement('textarea');t.value=text;document.body.appendChild(t);t.select();let ok=false;try{ok=document.execCommand('copy');}catch(_){}t.remove();return ok;}
+}
+
+function askConfirm(msg,opts){
+  opts=opts||{};
+  const destructive=/delete|remove|discard|stop syncing/i.test(msg);
+  return new Promise(res=>{
+    const back=el('modalBack'),ok=el('modalOk'),cancel=el('modalCancel');
+    el('modalTitle').textContent=opts.title||(destructive?'Are you sure?':'Please confirm');
+    el('modalIcon').textContent=destructive?'⚠️':'❓';
+    el('modalMsg').innerHTML=esc(msg).replace(/\n\n/g,'</p><p>').replace(/\n/g,'<br>');
+    ok.textContent=opts.ok||(destructive?'Yes, continue':'OK');ok.className='btn '+(destructive?'danger-solid':'primary');
+    back.classList.add('open');setTimeout(()=>ok.focus(),60);
+    const done=v=>{back.classList.remove('open');ok.onclick=cancel.onclick=back.onclick=null;document.removeEventListener('keydown',key,true);res(v);};
+    const key=e=>{if(e.key==='Escape'){e.preventDefault();e.stopPropagation();done(false);}else if(e.key==='Enter'&&document.activeElement!==cancel){e.preventDefault();e.stopPropagation();done(true);}};
+    ok.onclick=()=>done(true);cancel.onclick=()=>done(false);back.onclick=e=>{if(e.target===back)done(false);};
+    document.addEventListener('keydown',key,true);
+  });
 }
 
 /* ================================================================
@@ -1201,6 +1249,7 @@ async function idbHandle(mode,value){
 }
 
 function saveLocal(){
+  if(state.storageBlocked){state.dirty=false;state.lastSaved=Date.now();return;}
   try{localStorage.setItem(LS_KEY,serialiseState());}
   catch(e){toast('Browser storage is full – connect the OneDrive folder or export a backup.','error');}
   if(state.fsStatus!=='connected'){state.dirty=false;state.lastSaved=Date.now();}
@@ -1295,6 +1344,7 @@ async function mergeConflictCopies(){
 }
 
 async function initFileSystem(){
+  if(state.storageBlocked){renderBanner();return;}
   if(!isFSSupported()){setFsStatus('unsupported');return;}
   let h=null;try{h=await idbHandle('get');}catch(e){}
   if(!h){setFsStatus('none');return;}
@@ -1309,7 +1359,7 @@ async function connectFolder(){
   try{h=await window.showDirectoryPicker({id:'mpnclinic',mode:'readwrite'});}
   catch(e){if(e.name!=='AbortError')toast('Could not open folder: '+e.message,'error');return;}
   let exists=true;try{await h.getFileHandle(FS_FILE,{create:false});}catch(e){exists=false;}
-  if(!exists&&!confirm('No MPN data file was found in "'+h.name+'".\n\nIf this is the correct shared folder (e.g. the first time anyone sets it up), click OK to create the shared database here.\n\nIf colleagues already use the app, click Cancel and choose the folder that contains mpn_clinic_data.json.'))return;
+  if(!exists&&!(await askConfirm('No MPN data file was found in "'+h.name+'".\n\nIf this is the correct shared folder (e.g. the first time anyone sets it up), click OK to create the shared database here.\n\nIf colleagues already use the app, click Cancel and choose the folder that contains mpn_clinic_data.json.')))return;
   try{await idbHandle('put',h);}catch(e){}
   await activateHandle(h,true);
 }
@@ -1330,7 +1380,7 @@ async function activateHandle(h,isNew){
   if(isNew)toast('Connected to OneDrive folder "'+h.name+'". Saving automatically.','success');
 }
 async function disconnectFolder(){
-  if(!confirm('Stop syncing with the OneDrive folder on this computer?\n\nData already in OneDrive is not deleted.'))return;
+  if(!(await askConfirm('Stop syncing with the OneDrive folder on this computer?\n\nData already in OneDrive is not deleted.')))return;
   if(state.watcher)clearInterval(state.watcher);
   try{await idbHandle('delete');}catch(e){}
   state.dirHandle=null;state.pendingHandle=null;state.folderName=null;
@@ -1362,12 +1412,13 @@ function setSyncBadge(s){
 function renderBanner(){
   const b=el('syncBanner');if(!b)return;
   let cls='',html='';
-  if(state.fsStatus==='unsupported'){cls='err';html='⚠ This browser cannot save to OneDrive. Please open this file in <strong>Microsoft Edge</strong> or Chrome. Data is only being kept in this browser.';}
+  if(state.storageBlocked){cls='err';html='👁 <strong>Preview mode – nothing you do here is saved.</strong> You can try the app with demo patients, but to use it for real, open <strong>MPN_Virtual_Clinic.html</strong> from your OneDrive folder in Microsoft Edge. <button class="btn primary sm" data-act="load-demo">🧪 Load demo patients</button>';}
+  else if(state.fsStatus==='unsupported'){cls='err';html='⚠ This browser cannot save to OneDrive. Please open this file in <strong>Microsoft Edge</strong> or Chrome. Data is only being kept in this browser.';}
   else if(state.fsStatus==='none'){cls='warn';html='⚠ Not connected to the shared OneDrive folder – data is saved on <strong>this computer only</strong>. <button class="btn primary sm" data-act="connect">📁 Connect OneDrive folder</button>';}
   else if(state.fsStatus==='needs-permission'){cls='lock';html='🔒 One click to reconnect to the shared folder <strong>'+esc(state.folderName||'')+'</strong> (browser security asks each session). <button class="btn primary" data-act="reconnect">Reconnect</button>';}
   else if(state.syncError){cls='err';html='⚠ Could not save to OneDrive: '+esc(state.syncError)+'. Your work is safe in this browser. <button class="btn sm" data-act="sync-now">Retry</button>';}
   b.className='sync-banner nonprint '+(cls||'hidden');b.innerHTML=html.replace(/^(.*?)(<button.*)?$/,(m,t,btn)=>'<span>'+t+'</span>'+(btn||''));
-  const sc=el('setupCard');if(sc)sc.classList.toggle('hidden',!(state.fsStatus==='none'));
+  const sc=el('setupCard');if(sc)sc.classList.toggle('hidden',state.storageBlocked||state.fsStatus!=='none');
 }
 function renderSyncSettings(){
   const n=el('syncFolderName');if(n)n.textContent=state.folderName?(state.folderName+(state.fsStatus==='connected'?' ✓':' (needs reconnect)')):'Not connected';
@@ -1697,8 +1748,8 @@ function addSignature(){
   state.signatures.push(n);state.signaturesUpdatedAt=Date.now();el('newSignatureName').value='';
   markDirty();renderSignatures();
 }
-function removeSignature(i){
-  const s=state.signatures[i];if(s==null||!confirm('Remove signature "'+s+'"?'))return;
+async function removeSignature(i){
+  const s=state.signatures[i];if(s==null||!(await askConfirm('Remove signature "'+s+'"?')))return;
   state.signatures.splice(i,1);state.signaturesUpdatedAt=Date.now();markDirty();renderSignatures();
 }
 function defaultReviewer(){
@@ -1722,11 +1773,11 @@ function duePatients(byDate){
   const lv=latestVisitMap();
   return state.patients.map(p=>({p,due:nextDueFor(p.id,lv)})).filter(x=>x.due&&x.due<=byDate&&!activeEntry(x.p.id)).sort((a,b)=>a.due.localeCompare(b.due));
 }
-function addDueToClinic(){
+async function addDueToClinic(){
   const by=state.clinic.date||todayISO();
   const list=duePatients(by);
   if(!list.length){toast('No patients due by '+formatDate(by)+' who are not already in the clinic.','info');return;}
-  if(!confirm('Add '+list.length+' patient'+(list.length!==1?'s':'')+' due by '+formatDate(by)+' to the clinic?'))return;
+  if(!(await askConfirm('Add '+list.length+' patient'+(list.length!==1?'s':'')+' due by '+formatDate(by)+' to the clinic?')))return;
   list.forEach(x=>addEntry(x.p.id));
   touchClinic();markDirty();renderAll();toast(list.length+' patient'+(list.length!==1?'s':'')+' added to clinic.','success');
 }
@@ -1745,14 +1796,14 @@ function clearPatientForm(){
   el('dbThrombosisType').value='Aspirin';el('dbSupplyRoute').value='Repeat prescription';
   renderRegimenHistoryPanel(null);updateConditionalFields();
 }
-function savePatient(addToClinic){
+async function savePatient(addToClinic){
   const hn=el('dbHospitalNumber').value.trim(),first=el('dbFirstName').value.trim(),last=el('dbLastName').value.trim();
   if(!hn||!first||!last){toast('Please enter hospital number, first name and last name.','warning');return;}
   let id=state.editingPatientId;
   const clash=state.patients.find(p=>normHn(p.hospitalNumber)===normHn(hn)&&p.id!==id);
   if(clash){
     if(id){toast('Another patient ('+fullName(clash)+') already has this hospital number.','error');return;}
-    if(!confirm('Hospital number '+hn+' already belongs to '+fullName(clash)+'.\n\nUpdate that record with these details?'))return;
+    if(!(await askConfirm('Hospital number '+hn+' already belongs to '+fullName(clash)+'.\n\nUpdate that record with these details?')))return;
     id=clash.id;
   }
   const existing=id?patientById(id):null;
@@ -1780,9 +1831,9 @@ function editPatient(id){
   el('dbThrombosisType').value=p.thrombosisType||'';el('dbSupplyRoute').value=p.supplyRoute||'';
   renderRegimenHistoryPanel(p);updateConditionalFields();openDrawer();
 }
-function deletePatient(id){
+async function deletePatient(id){
   const p=patientById(id);if(!p)return;
-  if(!confirm('Delete '+fullName(p)+' ('+p.hospitalNumber+') from the shared database?\n\nThis removes them for everyone and cannot be undone. Their past visit records are kept for audit.'))return;
+  if(!(await askConfirm('Delete '+fullName(p)+' ('+p.hospitalNumber+') from the shared database?\n\nThis removes them for everyone and cannot be undone. Their past visit records are kept for audit.')))return;
   state.deleted[id]=Date.now();
   state.patients=state.patients.filter(x=>x.id!==id);
   state.clinic.patients.forEach(e=>{if(e.patientId===id&&!e.removed){e.removed=true;touch(e);}});touchClinic();
@@ -1808,9 +1859,9 @@ function addPatientToClinic(id){
   addEntry(id);touchClinic();markDirty();renderAll();
   const p=patientById(id);toast((p?fullName(p):'Patient')+' added to clinic.','success');
 }
-function removePatientFromClinic(id){
+async function removePatientFromClinic(id){
   const p=patientById(id);
-  if(!confirm('Remove '+(p?fullName(p):'this patient')+' from the clinic list?'))return;
+  if(!(await askConfirm('Remove '+(p?fullName(p):'this patient')+' from the clinic list?')))return;
   const e=activeEntry(id);if(e){e.removed=true;touch(e);touchClinic();}
   if(state.selectedPatientId===id)clearVisitFields();
   markDirty();renderAll();
@@ -1935,10 +1986,10 @@ function loadVisitIntoForm(v){
   if(v.questionnaireMode==='MPN-10'){el('visitMpn10Wrap').innerHTML=renderMpn10Form(v.mpn10||{});updateMpn10Total();}
   updateConditionalFields();updateDoseDecisionUI(false);flagBloodCounts();
 }
-function startClinicReview(id){
+async function startClinicReview(id){
   if(state.visitFormDirty&&state.selectedPatientId&&state.selectedPatientId!==id){
     const cp=currentPatient();
-    if(!confirm('You have unsaved changes for '+(cp?fullName(cp):'the current patient')+'. Switch anyway?'))return;
+    if(!(await askConfirm('You have unsaved changes for '+(cp?fullName(cp):'the current patient')+'. Switch anyway?')))return;
   }
   const row=activeEntry(id);
   selectPatientForVisit(id);
@@ -2105,7 +2156,7 @@ function formatDecisionSummary(decision,regimen){
 async function archiveClinic(){
   const entries=activeEntries(),doneRows=entries.filter(e=>DONE_STATUSES.includes(e.status));
   if(!doneRows.length){toast('No completed patients to archive yet.','warning');return;}
-  if(!confirm('Finish this clinic?\n\n'+doneRows.length+' of '+entries.length+' patient'+(entries.length!==1?'s':'')+' reviewed.\n\nReviewed patients move to Archived Sessions and the secretary pack is saved. Unreviewed patients stay on the list.'))return;
+  if(!(await askConfirm('Finish this clinic?\n\n'+doneRows.length+' of '+entries.length+' patient'+(entries.length!==1?'s':'')+' reviewed.\n\nReviewed patients move to Archived Sessions and the secretary pack is saved. Unreviewed patients stay on the list.')))return;
   if(state.fsStatus==='connected'){try{await exportForSecretary(true);}catch(e){toast('Could not save secretary pack: '+e.message,'warning');}}
   state.archivedClinics.unshift(touch({
     id:uid('arch'),createdAt:Date.now(),archivedBy:prefs.userName||'',
@@ -2128,9 +2179,9 @@ function openArchivedVisit(id){
   setFormReadOnly(true);
   renderLetter();renderPatientHeader();switchView('clinic');scrollToReview();
 }
-function deleteArchivedClinic(id){
+async function deleteArchivedClinic(id){
   const c=state.archivedClinics.find(x=>x.id===id);if(!c)return;
-  if(!confirm('Delete archived session from '+formatDate(c.date)+'?\n\nVisit records are kept.'))return;
+  if(!(await askConfirm('Delete archived session from '+formatDate(c.date)+'?\n\nVisit records are kept.')))return;
   state.deleted[id]=Date.now();state.archivedClinics=state.archivedClinics.filter(x=>x.id!==id);
   markDirty();renderAll();toast('Archived session deleted.','info');
 }
@@ -2309,9 +2360,9 @@ function downloadClinicTemplate(){downloadText('Hospital Number,Patient Name\nX1
 function exportJSON(){downloadText(serialiseState(),'mpn_clinic_backup_'+todayISO()+'.json','application/json');}
 function importJSON(file){
   const r=new FileReader();
-  r.onload=()=>{
+  r.onload=async()=>{
     try{const d=normaliseData(JSON.parse(r.result));
-      if(!confirm('Merge this backup ('+d.patients.length+' patients, '+d.visits.length+' visits) into the current data?'))return;
+      if(!(await askConfirm('Merge this backup ('+d.patients.length+' patients, '+d.visits.length+' visits) into the current data?')))return;
       applyData(mergeData(currentData(),d));markDirty();renderAll();toast('Backup merged.','success');
     }catch(e){toast('Could not read backup: '+e.message,'error');}
     el('importJsonFile').value='';
@@ -2322,8 +2373,8 @@ function importJSON(file){
 /* ================================================================
    DEMO DATA (fictional)
    ================================================================ */
-function loadDemo(){
-  if(!confirm('Add 8 fictional DEMO patients for training?\n\nIf you are connected to the shared OneDrive folder, colleagues will see them too until you click "Remove demo patients".'))return;
+async function loadDemo(){
+  if(state.fsStatus==='connected'&&!(await askConfirm('Add 8 fictional DEMO patients for training?\n\nIf you are connected to the shared OneDrive folder, colleagues will see them too until you click "Remove demo patients".')))return;
   const names=[['Alex','Demo-Allen','Essential thrombocythaemia','JAK2'],['Bea','Demo-Brown','Polycythaemia vera','JAK2'],['Carl','Demo-Clarke','Essential thrombocythaemia','CALR'],['Dee','Demo-Davies','Polycythaemia vera','JAK2'],['Evan','Demo-Evans','Essential thrombocythaemia','MPL'],['Fay','Demo-Fox','Essential thrombocythaemia','Triple negative'],['Gus','Demo-Green','Polycythaemia vera','JAK2'],['Hana','Demo-Hughes','Essential thrombocythaemia','JAK2']];
   const regs=['Hydroxycarbamide 500mg (1 capsule) once daily','Hydroxycarbamide 1000mg (2 capsules) once daily','Hydroxycarbamide 500mg (1 capsule) on alternate days'];
   let n=0;
@@ -2341,12 +2392,12 @@ function loadDemo(){
     }
   });
   state.visits.sort(visitSort);
-  markDirty();renderAll();toast(n+' demo patients added.','success');
+  markDirty();renderAll();toast(n?n+' demo patients added. Open the Virtual Clinic and click "Add due patients" to try a clinic.':'Demo patients are already loaded.',n?'success':'info');
 }
-function removeDemo(){
+async function removeDemo(){
   const ids=state.patients.filter(p=>p.demo||/^DEMO\d+$/i.test(p.hospitalNumber)).map(p=>p.id);
   if(!ids.length){toast('No demo patients found.','info');return;}
-  if(!confirm('Remove '+ids.length+' demo patients and their visits?'))return;
+  if(!(await askConfirm('Remove '+ids.length+' demo patients and their visits?')))return;
   const now=Date.now();
   ids.forEach(id=>state.deleted[id]=now);
   state.visits.filter(v=>ids.includes(v.patientId)).forEach(v=>state.deleted[v.id]=now);
@@ -2391,6 +2442,7 @@ function renderDashboard(){
   animateNumber(el('metricDone'),done);
   animateNumber(el('metricOverdue'),overdue);el('metricOverdue').classList.toggle('red',overdue>0);
 
+  el('startCard').classList.toggle('hidden',state.patients.length>0);
   // hero
   const hr=new Date().getHours(),first=(prefs.userName||'').replace(/^(dr|cns|mr|mrs|ms|prof)\.?\s+/i,'').split(' ')[0];
   const title=(prefs.userName||'').match(/^(dr|prof)\.?\s/i)?prefs.userName.split(' ')[0]+' '+prefs.userName.split(' ').slice(-1)[0]:first;
@@ -2492,6 +2544,8 @@ function bindEvents(){
       case'remove-sig':removeSignature(+id);break;
       case'quick-review':quickReview(id);break;
       case'new-patient':newPatient();break;
+      case'load-demo':loadDemo();break;
+      case'open-import':switchView('database');el('importPanel').classList.remove('hidden');break;
       case'close-drawer':closeDrawer();break;
       case'close-import':el('importPanel').classList.add('hidden');break;
       case'secretary-pack':exportForSecretary(false).catch(e=>toast('Could not save pack: '+e.message,'error'));break;
@@ -2547,7 +2601,7 @@ function bindEvents(){
     renderLetter();
   });
   on('parseBloodsBtn','click',applyPastedBloods);
-  on('clearVisitBtn','click',()=>{if(state.visitFormDirty&&!confirm('Discard unsaved changes?'))return;clearVisitFields();});
+  on('clearVisitBtn','click',async()=>{if(state.visitFormDirty&&!(await askConfirm('Discard unsaved changes?')))return;clearVisitFields();});
   on('saveVisitBtn','click',()=>saveVisit(false));
   on('markCompleteBtn','click',()=>saveVisit(true));
   on('downloadLetterBtn','click',()=>downloadVisitLetter(null));
@@ -2608,6 +2662,7 @@ function printLetter(){
    INIT
    ================================================================ */
 function init(){
+  try{localStorage.getItem('x');}catch(e){state.storageBlocked=true;}
   applyTheme();bindEvents();
   let local=null;
   try{const raw=localStorage.getItem(LS_KEY);if(raw)local=normaliseData(JSON.parse(raw));}catch(e){console.warn('local load',e);}
