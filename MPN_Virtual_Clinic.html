@@ -43,6 +43,21 @@ html.dark{
   --shadow-2:0 10px 28px -10px rgba(0,0,0,.6);
   --shadow-3:0 28px 70px -18px rgba(0,0,0,.75);
 }
+html.black{
+  --bg:#000;--surface:#0a0a0b;--surface-2:#131315;--surface-3:#000;
+  --border:#222226;--border-strong:#34343a;
+  --text:#f4f4f5;--text-2:#babac2;--muted:#85858f;
+  --brand-soft:#0f1a35;--grey-soft:#18181b;
+  --sidebar:#000;--sidebar-2:#000;
+  --shadow-1:none;--shadow-2:0 10px 28px -10px rgba(0,0,0,.9);
+}
+html.black .topbar{background:rgba(0,0,0,.85);}
+html.black .hero-main{background:linear-gradient(125deg,#1b2f8f 0%,#3b2799 50%,#08625f 100%);}
+.theme-switch{display:inline-flex;background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:3px;gap:2px;}
+.theme-switch button{border:0;background:transparent;color:var(--muted);font:inherit;font-size:12.5px;font-weight:700;padding:6px 10px;border-radius:9px;cursor:pointer;display:flex;align-items:center;gap:5px;white-space:nowrap;}
+.theme-switch button:hover{color:var(--text);}
+.theme-switch button.active{background:var(--surface);color:var(--text);box-shadow:var(--shadow-1);outline:1px solid var(--border);}
+@media(max-width:1500px){.theme-switch .t-label{display:none;}}
 html.sb-collapsed{--sbw:76px;}
 
 *,*::before,*::after{box-sizing:border-box;}
@@ -273,6 +288,29 @@ details.plain[open]>summary::before{transform:rotate(90deg);}
 .qa .qa-ic{font-size:20px;}
 .qa b{font-size:13.5px;}
 .qa span{font-size:11.5px;color:var(--muted);}
+.training-box{margin-top:16px;padding:12px 14px;border:1px dashed var(--border-strong);border-radius:12px;max-width:620px;}
+.quick-add{margin-top:10px;padding:12px;border-radius:12px;background:var(--surface);border:1px solid var(--brand);animation:slideDown .2s ease;}
+.quick-add label{margin-bottom:8px;}
+.all-done{display:flex;align-items:center;gap:12px;padding:12px;border-radius:12px;background:var(--green-soft);border:1px solid color-mix(in srgb,var(--green) 40%,transparent);margin-bottom:10px;animation:cardIn .3s both;}
+.bulk-table input{margin:0;padding:5px 7px;font-size:13px;min-width:60px;}
+.bulk-table td{padding:6px 8px;}
+.bulk-table td:first-child{min-width:190px;}
+.bulk-table input[type=date]{min-width:140px;}
+.bulk-table tr.nomatch td{opacity:.55;}
+.dose-builder{margin-top:12px;padding:14px;border-radius:14px;border:1px solid color-mix(in srgb,var(--brand) 45%,var(--border));background:color-mix(in srgb,var(--brand-soft) 45%,var(--surface));animation:slideDown .2s ease;}
+.db-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap;}
+.db-label{font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:12px 0 6px;}
+.dose-chips{display:flex;flex-wrap:wrap;gap:6px;}
+.dose-chip{border:2px solid var(--border);background:var(--surface);color:var(--text);border-radius:10px;padding:7px 12px;font:inherit;font-weight:800;font-size:13.5px;cursor:pointer;transition:.12s;display:flex;flex-direction:column;align-items:center;line-height:1.1;}
+.dose-chip small{font-size:10.5px;font-weight:600;color:var(--muted);}
+.dose-chip:hover{border-color:var(--brand);}
+.dose-chip.active{background:var(--brand);border-color:var(--brand);color:#fff;}
+.dose-chip.active small{color:rgba(255,255,255,.8);}
+.week-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;margin-top:10px;}
+.week-grid label{margin:0;font-size:11.5px;text-align:center;}
+.week-grid select{padding:6px 4px;font-size:13px;font-weight:700;text-align:center;}
+.db-summary{margin-top:12px;font-size:13px;font-weight:700;display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+.save-back{margin-top:8px;padding:8px 12px;border-radius:10px;background:var(--green-soft);color:var(--green);font-size:12.5px;font-weight:700;}
 .start-card{border:2px dashed var(--brand);margin-bottom:16px;}
 .start-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
 .start-grid .qa{padding:18px;}
@@ -394,6 +432,26 @@ html.dark .alert-warning{color:#facc15;}
 .drawer-foot{flex:none;padding:14px 22px;border-top:1px solid var(--border);background:var(--surface-2);display:flex;gap:8px;justify-content:flex-end;}
 .form-section{font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:6px 0 10px;}
 
+/* --- Prescriptions --- */
+.rx-group{margin-bottom:16px;padding:0;overflow:hidden;}
+.rx-group-head{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--border);background:var(--surface-2);}
+.rx-group-head h3{margin:0;font-size:15.5px;font-weight:800;flex:1;}
+.rx-row{display:grid;grid-template-columns:44px minmax(220px,1.1fr) minmax(280px,2fr) minmax(150px,.8fr);gap:14px;align-items:center;padding:12px 18px;border-bottom:1px solid var(--border);transition:background .15s;}
+.rx-row:last-child{border-bottom:0;}
+.rx-row.done{opacity:.6;}
+.rx-row.done .rx-drug{text-decoration:line-through;text-decoration-color:var(--muted);}
+.rx-tick{width:34px;height:34px;border-radius:10px;border:2px solid var(--border-strong);background:var(--surface);cursor:pointer;display:grid;place-items:center;font-size:18px;color:#fff;transition:.15s;}
+.rx-tick:hover{border-color:var(--green);}
+.rx-row.done .rx-tick{background:var(--green);border-color:var(--green);}
+.rx-drug{font-weight:800;font-size:14.5px;}
+.rx-extra{font-size:12.5px;color:var(--text-2);margin-top:3px;}
+.chip.rx{background:var(--amber-soft);color:var(--amber);border-color:transparent;}
+.chip.up{background:#fff0e6;color:#c2410c;border-color:transparent;}
+.chip.down{background:var(--brand-soft);color:var(--brand);border-color:transparent;}
+html.dark .chip.up{background:#3a1f0f;color:#ffa66b;}
+.rx-print-title{display:none;}
+.rx-now{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--border);border-radius:12px;background:var(--surface-2);}
+
 /* --- History --- */
 #historyAccordion{display:grid;grid-template-columns:repeat(auto-fill,minmax(440px,1fr));gap:14px;align-items:start;}
 .archive-session{border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;background:var(--surface);box-shadow:var(--shadow-1);transition:box-shadow .2s;animation:cardIn .3s both;}
@@ -482,10 +540,19 @@ html.dark .alert-warning{color:#facc15;}
 /* print: only the letter */
 @media print{
   html,body{background:#fff!important;height:auto!important;}
-  .sidebar,.topbar,.sync-banner,.toast-container,.drawer,.overlay,#view-dashboard,#view-database,#view-history,#view-settings,.workspace>.pane:not(.letter-pane),.letter-pane>.pane-head{display:none!important;}
+  .sidebar,.topbar,.sync-banner,.toast-container,.drawer,.overlay,.modal-back,#view-dashboard,#view-database,#view-history,#view-settings,#view-rx,.workspace>.pane:not(.letter-pane),.letter-pane>.pane-head{display:none!important;}
   .app,.main,.content,#view-clinic,.workspace,.letter-pane,.letter-pane .pane-body,#printArea{display:block!important;height:auto!important;max-height:none!important;overflow:visible!important;padding:0!important;margin:0!important;border:0!important;box-shadow:none!important;background:#fff!important;animation:none!important;}
   #letterPreview{zoom:1!important;width:auto!important;min-height:0!important;padding:0!important;box-shadow:none!important;border-radius:0!important;}
   @page{size:A4;margin:12mm 15mm;}
+  body.print-rx #view-clinic{display:none!important;}
+  body.print-rx #view-rx{display:block!important;animation:none!important;}
+  body.print-rx #view-rx .nonprint,body.print-rx .rx-group-head .btn{display:none!important;}
+  body.print-rx .rx-print-title{display:block;font-size:16px;font-weight:800;margin-bottom:10px;color:#000;}
+  body.print-rx .card,body.print-rx .rx-group-head{box-shadow:none;background:#fff!important;color:#000!important;border-color:#999!important;}
+  body.print-rx .rx-row{grid-template-columns:30px 1.1fr 2fr .8fr;padding:6px 8px;break-inside:avoid;color:#000;border-color:#bbb;}
+  body.print-rx .rx-row *{color:#000!important;}
+  body.print-rx .rx-tick{width:20px;height:20px;border:1.5px solid #000;background:#fff!important;color:#000!important;font-size:13px;}
+  body.print-rx .avatar{display:none;}
 }
 </style>
 </head>
@@ -501,6 +568,7 @@ html.dark .alert-warning{color:#facc15;}
     <div class="nav-section">Workspace</div>
     <button class="nav-btn active" data-view="dashboard" title="Dashboard"><span class="nav-icon">◎</span><span class="nav-label">Dashboard</span></button>
     <button class="nav-btn" data-view="clinic" title="Virtual Clinic"><span class="nav-icon">🩺</span><span class="nav-label">Virtual Clinic</span><span class="nav-count" id="navClinicCount">0</span></button>
+    <button class="nav-btn" data-view="rx" title="Prescriptions"><span class="nav-icon">💊</span><span class="nav-label">Prescriptions</span><span class="nav-count alert" id="navRxCount">0</span></button>
     <button class="nav-btn" data-view="database" title="Patients"><span class="nav-icon">👥</span><span class="nav-label">Patients</span><span class="nav-count" id="navPatientCount">0</span></button>
     <button class="nav-btn" data-view="history" title="Archived Sessions"><span class="nav-icon">🗂</span><span class="nav-label">Archived Sessions</span></button>
     <div class="nav-section">System</div>
@@ -527,8 +595,8 @@ html.dark .alert-warning{color:#facc15;}
       </div>
       <div class="top-actions">
         <span class="sync-badge sync-none" id="syncStatusIndicator">Not connected</span>
-        <button class="btn primary" id="saveDatabaseBtn" title="Saving is automatic – this forces an immediate save (Ctrl+S)">💾 Save</button>
-        <button class="btn icon theme-toggle" id="themeToggleBtn" title="Toggle dark/light mode">☀️</button>
+        <button class="btn primary" id="saveDatabaseBtn" title="Everything saves automatically within 2 seconds – this saves immediately, including any unfinished review">💾 Save all</button>
+        <div class="theme-switch" id="themeSwitch" role="radiogroup" aria-label="Colour mode"><button data-theme="light" title="Light mode">☀️<span class="t-label">Light</span></button><button data-theme="dark" title="Dark mode">🌙<span class="t-label">Dark</span></button><button data-theme="black" title="Pure black mode">⚫<span class="t-label">Black</span></button></div>
       </div>
     </header>
 
@@ -551,7 +619,7 @@ html.dark .alert-warning{color:#facc15;}
         <div class="card start-card hidden" id="startCard">
           <div class="card-header"><h3><span class="ic">🚀</span> No patients yet – choose how to start</h3></div>
           <div class="start-grid">
-            <button class="qa" data-act="load-demo"><span class="qa-ic">🧪</span><b>Load 8 demo patients</b><span>Fictional patients with blood history, ready to try a full clinic</span></button>
+            <button class="qa" data-act="goto-add"><span class="qa-ic">🩺</span><b>Add patients to a clinic</b><span>Search, quick-add or paste a list of hospital numbers</span></button>
             <button class="qa" data-act="open-import"><span class="qa-ic">⬆️</span><b>Import from CSV</b><span>Bring in your existing patient list (template provided)</span></button>
             <button class="qa" data-act="new-patient"><span class="qa-ic">👤</span><b>Add a patient</b><span>Type in one patient's details</span></button>
           </div>
@@ -603,8 +671,8 @@ html.dark .alert-warning{color:#facc15;}
           </div>
           <div class="span-3" style="display:flex;flex-direction:column;gap:16px;">
             <div class="card" style="margin:0;">
-              <div class="card-header"><h3><span class="ic">📈</span> Last 90 days</h3></div>
-              <div class="bars" id="decisionBars"></div>
+              <div class="card-header"><h3><span class="ic">💊</span> Prescriptions to write</h3><button class="btn soft sm" data-act="goto" data-id="rx">Open →</button></div>
+              <div id="dashRx"></div>
             </div>
             <div class="card" style="margin:0;">
               <div class="card-header"><h3><span class="ic">🚀</span> Quick actions</h3></div>
@@ -612,7 +680,7 @@ html.dark .alert-warning{color:#facc15;}
                 <button class="qa" data-act="goto" data-id="clinic"><span class="qa-ic">🩺</span><b>Run clinic</b><span>Review worklist</span></button>
                 <button class="qa" data-act="new-patient"><span class="qa-ic">👤</span><b>Add patient</b><span>New record</span></button>
                 <button class="qa" data-act="secretary-pack"><span class="qa-ic">📄</span><b>Secretary pack</b><span>All letters</span></button>
-                <button class="qa" data-act="goto" data-id="settings"><span class="qa-ic">☁️</span><b>Sync &amp; backup</b><span>OneDrive</span></button>
+                <button class="qa" data-act="goto" data-id="rx"><span class="qa-ic">💊</span><b>Prescriptions</b><span>Tick off as written</span></button>
               </div>
             </div>
           </div>
@@ -636,12 +704,31 @@ html.dark .alert-warning{color:#facc15;}
               </div>
               <div style="display:flex;gap:8px;margin-top:12px;">
                 <button class="btn primary sm" id="addDueClinicBtn" style="flex:1;">➕ Add due patients</button>
-                <button class="btn sm" id="toggleAddPanelBtn" title="Search, import, notes">⋯ More</button>
+                <button class="btn soft sm" id="toggleAddPanelBtn" title="Search, quick-add, paste a list">＋ Add</button>
               </div>
+              <button class="btn sm" data-act="open-bulk" style="width:100%;margin-top:8px;">🧪 Paste bloods for the whole clinic</button>
               <div class="add-panel hidden" id="addPanel">
-                <label style="margin-bottom:8px;">Add a patient<input id="clinicPatientSearch" placeholder="Search name or hospital number"></label>
+                <label style="margin-bottom:6px;">Find a patient<input id="clinicPatientSearch" placeholder="Name or hospital no. – Enter adds" autocomplete="off"></label>
                 <div id="clinicSearchResults"></div>
-                <label style="margin:10px 0 8px;">Clinic notes<textarea id="clinicNotes" style="min-height:44px;"></textarea></label>
+                <button class="btn soft sm" data-act="qa-open" style="width:100%;margin-top:6px;">＋ New patient (not in database yet)</button>
+                <div id="quickAddWrap" class="quick-add hidden">
+                  <div class="form-section">New patient → straight into this clinic</div>
+                  <div class="grid2"><label>Hospital no. *<input id="qaHn"></label><label>Date of birth<input id="qaDob" type="date"></label></div>
+                  <div class="grid2"><label>First name *<input id="qaFirst"></label><label>Last name *<input id="qaLast"></label></div>
+                  <div class="grid2">
+                    <label>Diagnosis<select id="qaDx"><option>Essential thrombocythaemia</option><option>Polycythaemia vera</option><option>Other</option></select></label>
+                    <label>Mutation<select id="qaVar"><option>JAK2</option><option>CALR</option><option>MPL</option><option>Triple negative</option><option>Other</option></select></label>
+                  </div>
+                  <label>Current hydroxycarbamide<input id="qaReg" list="regimenOptions" placeholder="e.g. Hydroxycarbamide 500mg once daily"></label>
+                  <div style="display:flex;gap:6px;"><button class="btn primary sm" id="qaSaveBtn" style="flex:1;">Create &amp; add to clinic</button><button class="btn ghost sm" data-act="qa-close">Cancel</button></div>
+                  <div class="field-hint">Address, GP and antiplatelet can be added later with the ✎ button.</div>
+                </div>
+                <details class="plain" style="margin-top:10px;">
+                  <summary>Paste a list of hospital numbers</summary>
+                  <textarea id="pasteListText" style="min-height:80px;" placeholder="One per line, e.g.&#10;A123456&#10;B234567 Jane Smith"></textarea>
+                  <button class="btn soft sm" id="pasteListBtn" style="margin-top:6px;">Add all to clinic</button>
+                  <div class="field-hint">Unknown numbers followed by a name are created as new patients.</div>
+                </details>
                 <details class="plain">
                   <summary>Import clinic list (CSV)</summary>
                   <input id="clinicImportFile" type="file" accept=".csv">
@@ -651,6 +738,7 @@ html.dark .alert-warning{color:#facc15;}
                   </div>
                   <div class="field-hint">Columns: Hospital Number, Patient Name (optional).</div>
                 </details>
+                <label style="margin:10px 0 0;">Clinic notes<textarea id="clinicNotes" style="min-height:40px;"></textarea></label>
               </div>
               <div class="wl-filters" id="wlFilters">
                 <button class="filter-chip active" data-wl="all">All <span class="n" id="wlnAll">0</span></button>
@@ -679,6 +767,8 @@ html.dark .alert-warning{color:#facc15;}
               </div>
               <div id="visitPanel">
                 <div id="viewingNotice" class="notice blue hidden">👁 Viewing a past visit (read-only). Click <strong>Clear</strong> to finish.</div>
+                <div id="bulkNotice" class="notice blue hidden">🧪 Blood results filled in from the bulk paste – please check them.</div>
+                <div id="draftNotice" class="notice amber hidden"></div>
                 <div id="editingNotice" class="notice blue hidden">✏ Editing a visit already saved – saving updates it rather than creating a duplicate.</div>
                 <div id="missedBloodsWarning" class="notice red hidden">⚠ <strong>Missed blood tests on 2+ consecutive reviews.</strong> Consider returning this patient to the consultant-led clinic.</div>
                 <div class="hidden">
@@ -750,15 +840,31 @@ html.dark .alert-warning{color:#facc15;}
                   <div class="section-title"><span class="step">3</span>Hydroxycarbamide</div>
                   <div class="grid2">
                     <label>Current regimen<textarea id="visitCurrentHydroxy" readonly style="min-height:46px;"></textarea></label>
-                    <label id="visitRegimenWrap">Regimen after this review
-                      <input id="visitRegimenAfterReview" list="regimenOptions" placeholder="Type or pick from list" autocomplete="off">
+                    <label id="visitRegimenWrap">New regimen (goes on the letter, prescription and patient record)
+                      <textarea id="visitRegimenAfterReview" style="min-height:46px;" placeholder="Use the dose builder below, or type"></textarea>
                       <div class="field-hint" id="regimenHint"></div>
                     </label>
+                  </div>
+                  <div class="save-back hidden" id="dbSaveHint"></div>
+                  <button type="button" class="btn soft sm hidden" id="dbOpenBtn">🧮 Open dose builder</button>
+                  <div class="dose-builder hidden" id="doseBuilder">
+                    <div class="db-head"><strong>🧮 Dose builder</strong><span class="small">500 mg capsules – click to build the wording</span><button type="button" class="btn ghost sm" id="dbCloseBtn" style="margin-left:auto;">Hide</button></div>
+                    <div class="filters" id="dbModes">
+                      <button type="button" class="filter-chip active" data-dbmode="daily">Same dose every day</button>
+                      <button type="button" class="filter-chip" data-dbmode="alt">Alternate days</button>
+                      <button type="button" class="filter-chip" data-dbmode="week">Different days of the week</button>
+                    </div>
+                    <div class="db-pane" id="dbDaily"><div class="db-label">Dose each day</div><div class="dose-chips" data-slot="daily"></div></div>
+                    <div class="db-pane hidden" id="dbAlt"><div class="db-label">Day 1</div><div class="dose-chips" data-slot="altA"></div><div class="db-label">Day 2</div><div class="dose-chips" data-slot="altB"></div></div>
+                    <div class="db-pane hidden" id="dbWeek"><div class="week-grid" id="dbWeekGrid"></div></div>
+                    <label style="margin:12px 0 0;">Extra instructions (optional)<input id="dbInstr" list="instrOptions" placeholder="e.g. Swallow the capsules whole with water"></label>
+                    <datalist id="instrOptions"><option value="Swallow the capsules whole with a glass of water"><option value="Take at the same time each day"><option value="Do not open or crush the capsules"><option value="Wash your hands after handling the capsules"></datalist>
+                    <div class="db-summary" id="dbSummary"></div>
                   </div>
                   <datalist id="regimenOptions"></datalist>
                 </div>
 
-                <div class="section" id="questionnaireFieldsWrap">
+                <div class="section hidden" id="questionnaireFieldsWrap">
                   <div class="section-title"><span class="step">4</span>Symptoms</div>
                   <label>Questionnaire
                     <select id="visitQuestionnaireMode"><option>None</option><option>MPN-10</option><option>Free text</option></select>
@@ -768,13 +874,15 @@ html.dark .alert-warning{color:#facc15;}
                 </div>
 
                 <div class="section">
-                  <div class="section-title"><span class="step">5</span>Sign-off</div>
+                  <div class="section-title"><span class="step">4</span>Sign-off</div>
                   <label>Reviewer signature<select id="visitReviewerSignature"><option value="">Select reviewer...</option></select></label>
+                  <label class="rx-now" id="rxNowWrap"><input type="checkbox" id="visitRxNow"> <span>💊 <strong>Prescription written now</strong><br><span class="small">Leave unticked if the pad isn't to hand – it goes on the Prescriptions list to do later.</span></span></label>
                 </div>
               </div>
             </div>
             <div class="pane-foot action-bar" id="reviewFoot">
               <button class="btn ghost sm" id="clearVisitBtn">Clear</button>
+              <span class="small" id="draftStatus"></span>
               <span class="spacer"></span>
               <span class="small" style="margin-right:4px;"><kbd>Ctrl</kbd>+<kbd>Enter</kbd></span>
               <button class="btn" id="saveVisitBtn">Save</button>
@@ -830,6 +938,31 @@ html.dark .alert-warning{color:#facc15;}
             <tbody id="databaseTableBody"></tbody>
           </table>
         </div>
+        <details class="plain training-box">
+          <summary>🧪 Training / demo data</summary>
+          <div class="small" style="margin:6px 0 10px;">Adds 8 fictional patients (hospital numbers DEMO001–DEMO008) with blood history so you can try a full clinic. Remove them before real clinics.</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button class="btn soft sm" id="loadDemoBtn">Load demo patients</button>
+            <button class="btn danger sm" id="removeDemoBtn">Remove demo patients</button>
+          </div>
+        </details>
+      </section>
+
+      <!-- ================= PRESCRIPTIONS ================= -->
+      <section id="view-rx" class="view">
+        <div class="toolbar-row nonprint">
+          <div class="filters" id="rxFilters">
+            <button class="filter-chip active" data-rxf="todo">Still to write <span class="n" id="rxnTodo">0</span></button>
+            <button class="filter-chip" data-rxf="done">Written <span class="n" id="rxnDone">0</span></button>
+            <button class="filter-chip" data-rxf="all">All</button>
+          </div>
+          <select id="rxClinicFilter" style="width:auto;margin:0;min-width:220px;"></select>
+          <span class="small" style="margin-left:auto;" id="rxCount"></span>
+          <button class="btn" id="rxWordBtn">⬇ Word list</button>
+          <button class="btn primary" id="rxPrintBtn">🖨 Print list</button>
+        </div>
+        <div class="rx-print-title">Hydroxycarbamide prescriptions – <span id="rxPrintTitle"></span></div>
+        <div id="rxList"></div>
       </section>
 
       <!-- ================= ARCHIVE ================= -->
@@ -887,7 +1020,6 @@ html.dark .alert-warning{color:#facc15;}
             <label>Line 3 – CNS<input id="setting3"></label>
             <label>Line 4 – Secretary<input id="setting4"></label>
             <label>Line 5 – Telephone<input id="setting5"></label>
-            <label>Line 6 – Email<input id="setting6"></label>
             <button class="btn primary" id="applySettingsBtn">Save header</button>
           </div>
           <div class="card">
@@ -903,13 +1035,6 @@ html.dark .alert-warning{color:#facc15;}
             </div>
             <div class="field-hint" style="margin-top:8px;">Importing a backup merges it – only older copies of the same record are replaced.</div>
           </div>
-          <div class="card">
-            <div class="card-header"><h3><span class="ic">🧪</span> Training / demo data</h3></div>
-            <div class="field-hint" style="margin-bottom:10px;">Adds fictional patients (hospital numbers DEMO…). Remove them before real clinics.</div>
-            <div style="display:flex;gap:8px;flex-wrap:wrap;">
-              <button class="btn soft" id="loadDemoBtn">Load demo patients</button>
-              <button class="btn danger" id="removeDemoBtn">Remove demo patients</button>
-            </div>
           </div>
         </div>
       </section>
@@ -974,6 +1099,18 @@ html.dark .alert-warning{color:#facc15;}
   </div>
 </aside>
 
+<aside class="drawer" id="bulkDrawer" aria-label="Paste bloods for whole clinic">
+  <div class="drawer-head">
+    <div><h3>🧪 Paste blood results for the whole clinic</h3><div class="small">Paste a lab export or report covering several patients. Results are matched by hospital number, NHS number or name.</div></div>
+    <button class="btn icon ghost" data-act="close-drawer" title="Close (Esc)">✕</button>
+  </div>
+  <div class="drawer-body">
+    <textarea id="bulkText" style="min-height:170px;font-family:Consolas,monospace;font-size:12.5px;" placeholder="Either a table with a header row, e.g.&#10;Hospital No, Hb, HCT, WBC, Neut, Plt, Date&#10;A123456, 132, 0.41, 6.1, 3.8, 412, 03/10/2026&#10;&#10;…or free text where each patient's results follow their hospital number or name."></textarea>
+    <div style="display:flex;gap:8px;align-items:center;margin:10px 0 14px;"><button class="btn primary" id="bulkMatchBtn">Match to clinic patients</button><span class="small" id="bulkSummary"></span></div>
+    <div id="bulkPreview"></div>
+  </div>
+  <div class="drawer-foot"><span class="small" style="margin-right:auto;">Check the values, then apply. They fill in automatically when you open each patient.</span><button class="btn ghost" data-act="close-drawer">Cancel</button><button class="btn success" id="bulkApplyBtn" disabled>Apply results</button></div>
+</aside>
 <div class="modal-back" id="modalBack"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
   <div class="modal-icon" id="modalIcon">❓</div>
   <h3 id="modalTitle">Please confirm</h3>
@@ -1000,7 +1137,7 @@ const DEFAULT_SETTINGS={
   head3:'Clinical Nurse Specialist: Joedy Davies',
   head4:'Secretary: Sarah Wilson',
   head5:'Telephone number: 01633 234331',
-  head6:'Email: ABB.Myeloid@wales.nhs.uk'
+  head6:''
 };
 const DEFAULT_SIGNATURES=['Dr Ali Mahdi','Dr Eamon Mahdi','Dr Chris Jenkins','CNS Joedy Davies'];
 const COMMON_REGIMENS=[
@@ -1041,7 +1178,7 @@ function arr(x){return Array.isArray(x)?x:[];}
 function isoLocal(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
 function todayISO(){return isoLocal(new Date());}
 function addDays(iso,n){const d=new Date((iso||todayISO())+'T00:00:00');d.setDate(d.getDate()+n);return isoLocal(d);}
-function nextThursdayISO(){const d=new Date();const diff=(4-d.getDay()+7)%7||7;d.setDate(d.getDate()+diff);return isoLocal(d);}
+function nextThursdayISO(after){const d=after?new Date(after+'T00:00:00'):new Date();if(after)d.setDate(d.getDate()+1);const diff=(4-d.getDay()+7)%7;d.setDate(d.getDate()+diff);return isoLocal(d);}
 function formatDate(iso){if(!iso)return'';const d=new Date(iso+'T00:00:00');if(isNaN(d))return iso;return d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});}
 function normHn(s){return String(s||'').replace(/\s+/g,'').toUpperCase();}
 function safeName(s){return String(s||'').replace(/[\\/:*?"<>|#%]+/g,'').replace(/\s+/g,'_').replace(/_+/g,'_').slice(0,80)||'file';}
@@ -1095,9 +1232,9 @@ function askConfirm(msg,opts){
 /* ================================================================
    DATA MODEL: normalise / migrate / merge
    ================================================================ */
-function newClinic(placeholder){
+function newClinic(placeholder,after){
   const t=placeholder?0:Date.now();
-  return{id:placeholder?'clinic_default':uid('clinic'),title:'MPN Virtual Clinic',date:nextThursdayISO(),notes:'',patients:[],metaUpdatedAt:t,updatedAt:t};
+  return{id:placeholder?'clinic_default':uid('clinic'),title:'MPN Virtual Clinic',date:nextThursdayISO(after&&after>todayISO()?after:undefined),notes:'',patients:[],metaUpdatedAt:t,updatedAt:t};
 }
 function migratePatient(p){
   const m=Object.assign({regimenHistory:[],hcActive:true,missedBloods:0,missedBloodsConsecutive:0,address:'',gp:'',createdAt:0,updatedAt:0},p);
@@ -1406,17 +1543,17 @@ async function checkForExternalChanges(){
 function setFsStatus(s){state.fsStatus=s;setSyncBadge(s==='connected'?'saved':'none');renderBanner();renderSyncSettings();}
 function setSyncBadge(s){
   const ind=el('syncStatusIndicator');if(!ind)return;
-  const m={saved:['sync-badge sync-saved','OneDrive synced'],saving:['sync-badge sync-saving','Saving…'],error:['sync-badge sync-error','Sync error'],none:['sync-badge sync-none',state.fsStatus==='needs-permission'?'Reconnect needed':'Not connected']};
+  const m={saved:['sync-badge sync-saved','Saved '+new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})],saving:['sync-badge sync-saving','Saving…'],error:['sync-badge sync-error','Sync error'],none:['sync-badge sync-none',state.fsStatus==='needs-permission'?'Reconnect needed':'Not connected']};
   const c=m[s]||m.none;ind.className=c[0];ind.textContent=c[1];
 }
 function renderBanner(){
   const b=el('syncBanner');if(!b)return;
   let cls='',html='';
-  if(state.storageBlocked){cls='err';html='👁 <strong>Preview mode – nothing you do here is saved.</strong> You can try the app with demo patients, but to use it for real, open <strong>MPN_Virtual_Clinic.html</strong> from your OneDrive folder in Microsoft Edge. <button class="btn primary sm" data-act="load-demo">🧪 Load demo patients</button>';}
+  if(state.storageBlocked){cls='err';html='👁 <strong>Preview mode – nothing you do here is saved.</strong> To use it for real, open <strong>MPN_Virtual_Clinic.html</strong> from your OneDrive folder in Microsoft Edge. (Training patients: Patients → Training / demo data.)';}
   else if(state.fsStatus==='unsupported'){cls='err';html='⚠ This browser cannot save to OneDrive. Please open this file in <strong>Microsoft Edge</strong> or Chrome. Data is only being kept in this browser.';}
   else if(state.fsStatus==='none'){cls='warn';html='⚠ Not connected to the shared OneDrive folder – data is saved on <strong>this computer only</strong>. <button class="btn primary sm" data-act="connect">📁 Connect OneDrive folder</button>';}
   else if(state.fsStatus==='needs-permission'){cls='lock';html='🔒 One click to reconnect to the shared folder <strong>'+esc(state.folderName||'')+'</strong> (browser security asks each session). <button class="btn primary" data-act="reconnect">Reconnect</button>';}
-  else if(state.syncError){cls='err';html='⚠ Could not save to OneDrive: '+esc(state.syncError)+'. Your work is safe in this browser. <button class="btn sm" data-act="sync-now">Retry</button>';}
+  else if(state.syncError){cls='err';html='⚠ Could not save to OneDrive: '+esc(state.syncError)+'. Your work is safe in this browser and will be saved as soon as it can. If you only have view access to the shared folder, ask its owner for edit access. <button class="btn sm" data-act="sync-now">Retry</button>';}
   b.className='sync-banner nonprint '+(cls||'hidden');b.innerHTML=html.replace(/^(.*?)(<button.*)?$/,(m,t,btn)=>'<span>'+t+'</span>'+(btn||''));
   const sc=el('setupCard');if(sc)sc.classList.toggle('hidden',state.storageBlocked||state.fsStatus!=='none');
 }
@@ -1435,7 +1572,8 @@ function renderSaveIndicator(){
   const av=el('sidebarAvatar');if(av){const parts=(prefs.userName||'?').replace(/^(dr|cns|mr|mrs|ms|prof)\.?\s+/i,'').split(/\s+/);av.textContent=((parts[0]||'?')[0]+(parts.length>1?parts[parts.length-1][0]:'')).toUpperCase();av.style.background=avatarColor(prefs.userName);}
 }
 async function forceSave(){
-  if(state.fsStatus==='connected'){await syncWithFile({force:true});if(!state.syncError)toast('Saved to OneDrive.','success');}
+  const draft=saveDraft();
+  if(state.fsStatus==='connected'){await syncWithFile({force:true});if(!state.syncError)toast('All changes saved to OneDrive'+(draft?' (including your unfinished review as a draft)':'')+'.','success');}
   else if(state.fsStatus==='needs-permission'){reconnectFolder();}
   else{saveLocal();renderSaveIndicator();toast('Saved in this browser. Connect the OneDrive folder to share with colleagues.','info');}
 }
@@ -1497,9 +1635,80 @@ function parseBloods(text){
   const wcc=grab(/\b(?:wcc|wbc|white\s*(?:blood\s*)?cell(?:s|\s*count)?)\b[^0-9\n]{0,20}(\d+(?:\.\d+)?)/i);if(!isNaN(wcc))out.wcc=wcc;
   const neut=grab(/\b(?:neut(?:rophils?)?|anc)\b[^0-9\n]{0,20}(\d+(?:\.\d+)?)/i);if(!isNaN(neut))out.neut=neut;
   const plt=grab(/\b(?:plt|plts|platelets?)(?:\s*count)?\b[^0-9\n]{0,20}(\d+(?:\.\d+)?)/i);if(!isNaN(plt))out.plt=plt;
-  const dm=t.match(/(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{2,4})/);
-  if(dm){let y=+dm[3];if(y<100)y+=2000;const iso=y+'-'+String(+dm[2]).padStart(2,'0')+'-'+String(+dm[1]).padStart(2,'0');if(!isNaN(new Date(iso+'T00:00:00')))out.date=iso;}
+  const today=todayISO();
+  [...t.matchAll(/(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{2,4})/g)].forEach(dm=>{let y=+dm[3];if(y<100)y+=2000;const iso=y+'-'+String(+dm[2]).padStart(2,'0')+'-'+String(+dm[1]).padStart(2,'0');
+    if(!isNaN(new Date(iso+'T00:00:00'))&&iso<=today&&(!out.date||iso>out.date))out.date=iso;});
   return out;
+}
+function bulkParse(text){
+  const pats=activeEntries().filter(e=>!DONE_STATUSES.includes(e.status)).map(e=>patientById(e.patientId)).filter(Boolean);
+  const found={};const lines=text.split(/\r?\n/).filter(l=>l.trim());
+  const nums=s=>String(s||'').replace(/\s/g,'');
+  if(lines.length>1){
+    const d=lines[0].includes('\t')?'\t':(lines[0].split(',').length>2?',':null);
+    if(d){
+      const split=l=>d==='\t'?l.split('\t'):(parseCSV(l)[0]||[]);
+      const hdr=split(lines[0]).map(h=>h.trim().toLowerCase());
+      const col=re=>hdr.findIndex(h=>re.test(h));
+      const c={hn:col(/hosp|mrn|crn|unit|patient.?(no|id|num)|^id$/),nhs:col(/nhs/),name:col(/name/),hb:col(/^(hb|hgb|haemoglobin|hemoglobin)\b/),hct:col(/hct|haematocrit|hematocrit|pcv/),wcc:col(/wcc|wbc|white/),neut:col(/neut|anc/),plt:col(/plt|platelet/),date:col(/date|collected|sample|taken/)};
+      if((c.hn>=0||c.nhs>=0||c.name>=0)&&(c.hb>=0||c.plt>=0||c.wcc>=0)){
+        lines.slice(1).forEach(l=>{
+          const r=split(l),hn=c.hn>=0?normHn(r[c.hn]):'',nhs=c.nhs>=0?nums(r[c.nhs]):'',nm=c.name>=0?String(r[c.name]||'').toLowerCase().trim():'';
+          const p=pats.find(p=>(hn&&normHn(p.hospitalNumber)===hn)||(nhs&&nums(p.nhsNumber)===nhs)||(nm&&(nm===fullName(p).toLowerCase()||nm===((p.lastName||'')+', '+(p.firstName||'')).toLowerCase())));
+          if(!p)return;
+          const num=i=>i>=0?parseFloat(r[i]):NaN,o={};
+          let hb=num(c.hb);if(!isNaN(hb)){if(hb<30)hb=Math.round(hb*10);o.hb=hb;}
+          let hct=num(c.hct);if(!isNaN(hct)){if(hct>1)hct=hct/100;o.hct=+hct.toFixed(3);}
+          ['wcc','neut','plt'].forEach(k=>{const v=num(c[k]);if(!isNaN(v))o[k]=v;});
+          if(c.date>=0){const dd=parseDateLoose(String(r[c.date]||'').trim().split(/\s/)[0]);if(dd)o.date=dd;}
+          found[p.id]=o;
+        });
+        return{found,pats};
+      }
+    }
+  }
+  const U=text.toUpperCase(),hits=[];
+  pats.forEach(p=>{
+    const keys=[p.hospitalNumber,p.nhsNumber,(p.lastName&&p.firstName)?p.lastName+', '+p.firstName:'',fullName(p)].filter(k=>k&&String(k).trim().length>=4);
+    let pos=-1;keys.forEach(k=>{const i=U.indexOf(String(k).toUpperCase());if(i>=0&&(pos<0||i<pos))pos=i;});
+    if(pos>=0)hits.push({p,pos});
+  });
+  hits.sort((a,b)=>a.pos-b.pos);
+  hits.forEach((h,i)=>{found[h.p.id]=parseBloods(text.slice(h.pos,i+1<hits.length?hits[i+1].pos:text.length));});
+  return{found,pats};
+}
+function bulkMatch(){
+  const text=el('bulkText').value;
+  if(!text.trim()){toast('Paste the results first.','warning');return;}
+  const {found,pats}=bulkParse(text);
+  if(!pats.length){toast('There are no unreviewed patients in the clinic to match.','warning');return;}
+  const keys=['date','hb','hct','wcc','neut','plt'],labels=['Date','Hb','HCT','WCC','Neut','Plt'];
+  const n=Object.keys(found).filter(id=>Object.keys(found[id]).length).length;
+  el('bulkSummary').textContent='Matched '+n+' of '+pats.length+' patients still to review.';
+  el('bulkPreview').innerHTML='<div class="table-wrap"><table class="bulk-table"><thead><tr><th>Patient</th>'+labels.map(l=>'<th>'+l+'</th>').join('')+'</tr></thead><tbody>'+
+    pats.slice().sort((a,b)=>(Object.keys(found[b.id]||{}).length>0)-(Object.keys(found[a.id]||{}).length>0)).map(p=>{const f=found[p.id]||{};const ok=Object.keys(f).length>0;
+      return'<tr class="'+(ok?'':'nomatch')+'" data-pid="'+esc(p.id)+'"><td><strong>'+esc(fullName(p))+'</strong><div class="small">'+esc(p.hospitalNumber)+(ok?'':' · not found')+'</div></td>'+
+        keys.map(k=>'<td><input data-k="'+k+'" '+(k==='date'?'type="date"':'type="number" step="any"')+' value="'+esc(f[k]!=null?f[k]:'')+'"></td>').join('')+'</tr>';}).join('')+'</tbody></table></div>';
+  el('bulkApplyBtn').disabled=!pats.length;
+}
+function bulkApply(){
+  let n=0;
+  el('bulkPreview').querySelectorAll('tr[data-pid]').forEach(tr=>{
+    const o={};tr.querySelectorAll('input[data-k]').forEach(i=>{if(i.value!=='')o[i.getAttribute('data-k')]=i.value;});
+    if(!Object.keys(o).length)return;
+    const e=activeEntry(tr.getAttribute('data-pid'));if(!e)return;
+    e.draftBloods=o;touch(e);n++;
+  });
+  if(!n){toast('Nothing to apply – no values entered.','warning');return;}
+  touchClinic();markDirty();closeDrawer();renderAll();
+  const sel=state.selectedPatientId&&activeEntry(state.selectedPatientId);
+  if(sel&&sel.draftBloods&&!state.editingVisitId&&!el('visitHaemoglobin').value&&!el('visitPlatelets').value)fillDraftBloods(sel.draftBloods);
+  toast('Blood results added for '+n+' patient'+(n!==1?'s':'')+'. They fill in when you open each one.','success');
+}
+function fillDraftBloods(d){
+  if(d.date)el('visitBloodDate').value=d.date;
+  [['hb','visitHaemoglobin'],['hct','visitHaematocrit'],['wcc','visitWcc'],['neut','visitNeutrophils'],['plt','visitPlatelets']].forEach(([k,id])=>{if(d[k]!=null&&d[k]!=='')el(id).value=d[k];});
+  flagBloodCounts();el('bulkNotice').classList.remove('hidden');renderLetter();
 }
 function applyPastedBloods(){
   const r=parseBloods(el('pasteBloods').value);const filled=[];
@@ -1625,7 +1834,7 @@ function buildLetterHTML(p,v){
   const rebook=v.doseDecision==='no_bloods';
   let h='<div style="font-family:Arial,Helvetica,sans-serif;font-size:11pt;line-height:1.35;color:#111;">';
   h+='<div style="text-align:center;font-weight:bold;line-height:1.25;padding-bottom:8px;margin-bottom:12px;border-bottom:2px solid #111;">'+
-     '<div style="font-size:13pt;">'+esc(S.head1)+'</div>'+['head2','head3','head4','head5','head6'].map(k=>S[k]?'<div style="font-size:10pt;">'+esc(S[k])+'</div>':'').join('')+'</div>';
+     '<div style="font-size:13pt;">'+esc(S.head1)+'</div>'+['head2','head3','head4','head5'].map(k=>S[k]?'<div style="font-size:10pt;">'+esc(S[k])+'</div>':'').join('')+'</div>';
   h+='<table style="width:100%;border-collapse:collapse;margin-bottom:12px;"><tr><td style="vertical-align:top;font-size:10.5pt;padding:0;">'+
      '<strong>'+val(name,'«Name»')+'</strong><br>'+
      (p.dob?'DOB: '+esc(formatDate(p.dob))+'<br>':'')+
@@ -1652,17 +1861,16 @@ function buildLetterHTML(p,v){
     h+='<table style="border-collapse:collapse;margin:0 0 10px 0;"><tr><th style="'+td+'background:#f1f5f9;text-align:left;">Test</th><th style="'+td+'background:#f1f5f9;text-align:left;">Result</th></tr>'+
        [['Haemoglobin',v.haemoglobin,'g/L'],['White Cell Count',v.whiteCellCount,'× 10⁹/L'],['Neutrophils',v.neutrophilCount,'× 10⁹/L'],['Platelets',v.plateletCount,'× 10⁹/L'],['Haematocrit',v.haematocrit,'L/L']]
        .map(r=>'<tr><td style="'+td+'">'+r[0]+'</td><td style="'+td+'">'+(r[1]!==''&&r[1]!=null?esc(r[1])+' '+r[2]:'–')+'</td></tr>').join('')+'</table>';
-    h+='<p style="'+P+'"><strong>Questionnaire (MPN-10 score and further information):</strong><br>'+esc(questionnaireForLetter(v))+'</p>';
     if(v.venesectionPerformed)h+='<p style="'+P+'">A venesection'+(v.venesectionVolume?' of '+esc(v.venesectionVolume)+' ml':'')+' was performed at this appointment.</p>';
     h+='<p style="'+P+'"><strong>Based on these results, you are advised to:</strong><br>'+(v.doseDecision?esc(composeDoseWording(v.doseDecision,v.regimenAfterReview)):ph('«Advice»'))+'</p>';
     h+='<p style="'+P+'">With this letter, you will find:</p><ul style="margin:0 0 8px 0;">'+
        (v.doseDecision!=='stop'?'<li>A prescription to take to your local pharmacy.</li>':'')+
        '<li>A new blood test form. Please use this to have your blood taken before your next virtual appointment, which is due by <strong>'+val(formatDate(v.nextVirtualAppointmentDate),'«Date»')+'</strong>. Try to have your blood test done at your local hospital or GP surgery 3 to 5 working days before this date.</li>'+
-       '<li>Symptom check: We recommend completing our short symptom check on the same day you have your blood test. While it\'s not essential, it helps us keep track of how you\'re feeling. You can fill it in online or by scanning the QR code provided.</li></ul>';
+       '</ul>';
     h+='<p style="'+P+'"><strong>Important Reminders</strong></p>'+
        '<p style="'+P+'">If you have any concerns about your condition, treatment, or this new review system, do not hesitate to get in touch on the above contact number. Please contact us if you experience:</p>'+
        '<ul style="margin:0 0 8px 0;"><li>New or worsening tiredness, dizziness, or breathlessness</li><li>Unexplained weight loss or loss of appetite</li><li>Skin ulcers, slow-healing wounds, or suspicious skin lesions</li><li>Increased bruising, bleeding, or signs of infection</li></ul>'+
-       '<p style="'+P+'">For future reviews, if you don\'t receive a letter from us within 3 weeks after having your blood test, please get in touch by phone or email.</p>';
+       '<p style="'+P+'">For future reviews, if you don\'t receive a letter from us within 3 weeks after having your blood test, please get in touch by phone.</p>';
   }
   h+='<p style="'+P+'">Yours sincerely,</p><p style="margin:18px 0 4px 0;font-weight:bold;">'+val(v.reviewerSignature,'Reviewer signature')+'</p>';
   if(p.gp)h+='<p style="margin:14px 0 0 0;font-size:10pt;">cc: '+esc(p.gp).replace(/\n/g,', ')+'</p>';
@@ -1698,6 +1906,7 @@ const VIEW_INFO={
   clinic:['Virtual Clinic','Run your virtual clinic session'],
   database:['Patients','Manage patient records'],
   history:['Archived Sessions','Past clinic sessions'],
+  rx:['Prescriptions','Every prescription from your clinics – tick each one off when it has been written'],
   settings:['Settings & Sync','OneDrive folder, letter header, signatures and backups']
 };
 function switchView(view){
@@ -1727,11 +1936,12 @@ function updateConditionalFields(){
    SETTINGS / SIGNATURES / PREFS
    ================================================================ */
 function renderSettingsInputs(){
-  for(let i=1;i<=6;i++){const e=el('setting'+i);if(e&&document.activeElement!==e)e.value=state.settings['head'+i]||'';}
+  for(let i=1;i<=5;i++){const e=el('setting'+i);if(e&&document.activeElement!==e)e.value=state.settings['head'+i]||'';}
   const u=el('prefUserName');if(u&&document.activeElement!==u)u.value=prefs.userName||'';
 }
 function applySettings(){
-  for(let i=1;i<=6;i++)state.settings['head'+i]=el('setting'+i).value.trim();
+  for(let i=1;i<=5;i++)state.settings['head'+i]=el('setting'+i).value.trim();
+  state.settings.head6='';
   state.settings.updatedAt=Date.now();
   markDirty();renderLetter();toast('Letter header saved for everyone.','success');
 }
@@ -1787,7 +1997,8 @@ async function addDueToClinic(){
    ================================================================ */
 const DB_TEXT_FIELDS=[['dbHospitalNumber','hospitalNumber'],['dbNhsNumber','nhsNumber'],['dbFirstName','firstName'],['dbLastName','lastName'],['dbDiagnosisOther','diagnosisOther'],['dbVariantOther','variantOther'],['dbThrombosisOther','thrombosisOther'],['dbThrombosisDose','thrombosisDose'],['dbSupplyOther','supplyOther'],['dbCurrentHydroxy','currentHydroxy'],['dbYearDiagnosis','yearDiagnosis'],['dbAddress','address'],['dbGp','gp'],['dbDob','dob']];
 function openDrawer(){el('patientDrawer').classList.add('open');el('drawerOverlay').classList.add('open');setTimeout(()=>{const f=el('dbHospitalNumber');if(f&&!f.value)f.focus();},250);}
-function closeDrawer(){el('patientDrawer').classList.remove('open');el('drawerOverlay').classList.remove('open');}
+function closeDrawer(){el('patientDrawer').classList.remove('open');el('bulkDrawer').classList.remove('open');el('drawerOverlay').classList.remove('open');}
+function openBulk(){el('bulkDrawer').classList.add('open');el('drawerOverlay').classList.add('open');setTimeout(()=>el('bulkText').focus(),250);}
 function newPatient(){clearPatientForm();openDrawer();}
 function clearPatientForm(){
   state.editingPatientId=null;el('dbFormTitle').textContent='Add patient';
@@ -1882,9 +2093,58 @@ function renderClinicSearch(){
   if(!term){c.innerHTML='';return;}
   const rows=state.patients.filter(p=>(fullName(p)+' '+p.hospitalNumber+' '+(p.nhsNumber||'')).toLowerCase().includes(term)).slice(0,6);
   c.innerHTML=rows.map(p=>'<div class="list-row"><div><strong>'+esc(fullName(p))+'</strong> <span class="small">('+esc(p.hospitalNumber)+') · '+esc(diagnosisDisplay(p))+'</span></div>'+
-    (activeEntry(p.id)?'<span class="status completed">In clinic</span>':'<button class="btn soft sm" data-act="add-clinic" data-id="'+esc(p.id)+'">Add</button>')+'</div>').join('')||'<div class="small">No matches. <a href="#" data-act="goto" data-id="database">Add a new patient</a></div>';
+    (activeEntry(p.id)?'<span class="status completed">In clinic</span>':'<button class="btn soft sm" data-act="add-clinic" data-id="'+esc(p.id)+'">Add</button>')+'</div>').join('')||'<div class="small" style="padding:6px 0;">Not in the database. <button class="btn primary sm" data-act="qa-open">Create “'+esc(el('clinicPatientSearch').value.trim())+'” &amp; add</button></div>';
+}
+function openQuickAdd(){
+  const t=el('clinicPatientSearch').value.trim();
+  el('addPanel').classList.remove('hidden');el('quickAddWrap').classList.remove('hidden');
+  ['qaHn','qaFirst','qaLast','qaDob','qaReg'].forEach(i=>el(i).value='');
+  if(t){if(/\d/.test(t))el('qaHn').value=t.toUpperCase();else{const parts=t.split(/\s+/);el('qaLast').value=parts.length>1?parts.pop():'';el('qaFirst').value=parts.join(' ');}}
+  setTimeout(()=>el(el('qaHn').value?'qaFirst':'qaHn').focus(),50);
+}
+function quickAddSave(){
+  const hn=el('qaHn').value.trim(),first=el('qaFirst').value.trim(),last=el('qaLast').value.trim();
+  if(!hn||!first||!last){toast('Hospital number, first name and last name are needed.','warning');return;}
+  let p=state.patients.find(x=>normHn(x.hospitalNumber)===normHn(hn));
+  if(p){toast(fullName(p)+' already exists – added to the clinic.','info');}
+  else{
+    const dx=el('qaDx').value,reg=el('qaReg').value.trim();
+    p=touch(migratePatient({id:uid('pt'),createdAt:Date.now(),hospitalNumber:hn,firstName:first,lastName:last,dob:el('qaDob').value||'',diagnosisType:dx,variantType:el('qaVar').value,thrombosisType:'',supplyRoute:'',currentHydroxy:reg}));
+    state.patients.push(p);
+  }
+  if(!activeEntry(p.id)){addEntry(p.id);touchClinic();}
+  markDirty();el('quickAddWrap').classList.add('hidden');el('clinicPatientSearch').value='';renderAll();
+  toast(fullName(p)+' added to the clinic.','success');
+}
+function addFromPastedList(){
+  const lines=el('pasteListText').value.split(/\r?\n/).map(l=>l.trim()).filter(Boolean);
+  let added=0,created=0,already=0;const missing=[];
+  lines.forEach(l=>{
+    const tokens=l.split(/[\s,;\t]+/).filter(Boolean);
+    const hnTok=tokens.find(t=>/\d/.test(t));if(!hnTok)return;
+    const hn=hnTok.replace(/[^A-Za-z0-9]/g,'');
+    let p=state.patients.find(x=>normHn(x.hospitalNumber)===normHn(hn));
+    if(!p){
+      const nameParts=tokens.filter(t=>t!==hnTok&&!/\d/.test(t));
+      if(nameParts.length<2){missing.push(hn);return;}
+      p=touch(migratePatient({id:uid('pt'),createdAt:Date.now(),hospitalNumber:hn.toUpperCase(),firstName:nameParts.slice(0,-1).join(' '),lastName:nameParts[nameParts.length-1],diagnosisType:'Other',variantType:'Other',thrombosisType:'',supplyRoute:''}));
+      state.patients.push(p);created++;
+    }
+    if(activeEntry(p.id)){already++;return;}
+    addEntry(p.id);added++;
+  });
+  touchClinic();markDirty();renderAll();
+  if(!missing.length)el('pasteListText').value='';else el('pasteListText').value=missing.join('\n');
+  toast(added+' added'+(created?' ('+created+' new record'+(created>1?'s':'')+' – complete their details with ✎)':'')+(already?', '+already+' already in clinic':'')+(missing.length?'. Not found (add a name after the number to create them): '+missing.join(', '):'')+'.',missing.length?'warning':'success');
 }
 function statusClass(s){return s==='completed'?'completed':s==='rebooked'?'rebooked':s==='in progress'?'in-progress':'not-started';}
+function wlChips(e){
+  const v=e.visitId?state.visits.find(x=>x.id===e.visitId):null;let h='';
+  if(v&&v.rxRequired&&!v.rxDone)h+='<span class="chip rx" title="Prescription still to write">💊 Rx</span>';
+  if(!v&&e.draftBloods)h+='<span class="chip" title="Blood results ready from bulk paste">🧪 Bloods in</span>';
+  if(!v&&e.draft)h+='<span class="chip" title="Unsaved draft kept">📝 Draft</span>';
+  return h;
+}
 function renderClinicTable(){
   const entries=activeEntries(),lv=latestVisitMap(),today=todayISO();
   const isDone=e=>DONE_STATUSES.includes(e.status);
@@ -1899,13 +2159,15 @@ function renderClinicTable(){
       avatarHTML(p)+
       '<div style="min-width:0;"><div class="wl-name">'+esc(fullName(p))+missed+'</div><div class="wl-sub">'+esc(p.hospitalNumber)+' · '+esc(diagnosisDisplay(p))+other+'</div>'+
       (due?'<div class="wl-sub" style="margin-top:2px;">'+(due<today?'<span class="overdue-flag">Due '+formatDate(due)+'</span>':'Due '+formatDate(due))+'</div>':'')+'</div>'+
-      '<div class="wl-right"><button class="wl-x" data-act="remove-clinic" data-id="'+esc(p.id)+'" title="Remove from clinic">✕</button><span class="status '+statusClass(e.status)+'">'+esc(e.status)+'</span></div></div>';
+      '<div class="wl-right"><button class="wl-x" data-act="remove-clinic" data-id="'+esc(p.id)+'" title="Remove from clinic">✕</button><span class="status '+statusClass(e.status)+'">'+esc(e.status)+'</span>'+wlChips(e)+'</div></div>';
   }).join('')||(entries.length?'<div class="empty"><div class="big-ic">✨</div><h4>Nothing here</h4><div>No patients match this filter.</div></div>':
     '<div class="empty"><div class="big-ic">📋</div><h4>No patients yet</h4><div>Click <strong>Add due patients</strong> to build the clinic from everyone due by the clinic date.</div></div>');
   const total=entries.length,done=entries.filter(isDone).length,pct=total?Math.round(done/total*100):0;
+  if(total&&done===total)el('clinicTableBody').insertAdjacentHTML('afterbegin','<div class="all-done"><div style="font-size:26px;">✅</div><div style="flex:1;"><strong>All '+total+' patients reviewed</strong><div class="small">Finish to save the letters pack and start next Thursday\'s clinic. Prescriptions stay on the Prescriptions list.</div></div><button class="btn success sm" data-act="finish-clinic">Finish &amp; archive</button></div>');
   el('clinicProgressBar').style.width=pct+'%';
   el('clinicProgressText').textContent=done+' / '+total+' reviewed';
   setRing('clinicRing','clinicRingText',pct);
+  if(!total)el('addPanel').classList.remove('hidden');
   el('wlnAll').textContent=total;el('wlnTodo').textContent=total-done;el('wlnDone').textContent=done;
   const nc=el('navClinicCount');if(nc)nc.textContent=total-done;
 }
@@ -1923,8 +2185,11 @@ function resetVisitFormFields(){
   ['visitHaemoglobin','visitHaematocrit','visitWcc','visitNeutrophils','visitPlatelets'].forEach(id=>el(id).classList.remove('warn','alert'));
   el('visitMpn10Wrap').innerHTML='';el('alertsPanel').innerHTML='';el('alertsPanel').classList.add('hidden');
   el('visitVenesection').checked=false;el('venesectionWrap').classList.add('hidden');
-  ['missedBloodsWarning','rebookNotice','viewingNotice','editingNotice'].forEach(id=>el(id).classList.add('hidden'));
+  el('visitRxNow').checked=false;
+  ['missedBloodsWarning','rebookNotice','viewingNotice','editingNotice','bulkNotice','draftNotice'].forEach(id=>el(id).classList.add('hidden'));
   state.viewingVisitId=null;state.editingVisitId=null;state.nextReviewAuto=false;
+  if(el('draftStatus'))el('draftStatus').textContent='';
+  if(el('doseBuilder')){el('doseBuilder').classList.add('hidden');el('dbOpenBtn').classList.add('hidden');el('dbSaveHint').classList.add('hidden');}
   setFormReadOnly(false);
   updateConditionalFields();updateDoseDecisionUI(false);
 }
@@ -1956,6 +2221,7 @@ function selectPatientForVisit(id){
   el('hctTargetHint').textContent=isPV(p)?'PV target: ≤0.45':'';
   el('missedBloodsWarning').classList.toggle('hidden',(p.missedBloodsConsecutive||0)<2);
   updateRegimenOptions(p);
+  state.db=dbDefault(p);state.dbTouched=false;showBuilder(false);
   state.visitFormDirty=false;
   renderSparklines(p);renderVisitHistoryPanel(p);renderLetter();renderPatientHeader();
   document.title=fullName(p)+' – MPN Virtual Clinic';
@@ -1983,13 +2249,15 @@ function loadVisitIntoForm(v){
   const sel=el('visitReviewerSignature');sel.value=v.reviewerSignature||'';
   if(v.reviewerSignature&&sel.value!==v.reviewerSignature){const o=document.createElement('option');o.textContent=v.reviewerSignature;sel.appendChild(o);sel.value=v.reviewerSignature;}
   el('visitVenesection').checked=!!v.venesectionPerformed;el('visitVenesectionVolume').value=v.venesectionVolume||'';
+  el('visitRxNow').checked=!!v.rxDone;
   if(v.questionnaireMode==='MPN-10'){el('visitMpn10Wrap').innerHTML=renderMpn10Form(v.mpn10||{});updateMpn10Total();}
   updateConditionalFields();updateDoseDecisionUI(false);flagBloodCounts();
 }
 async function startClinicReview(id){
   if(state.visitFormDirty&&state.selectedPatientId&&state.selectedPatientId!==id){
     const cp=currentPatient();
-    if(!(await askConfirm('You have unsaved changes for '+(cp?fullName(cp):'the current patient')+'. Switch anyway?')))return;
+    if(saveDraft())toast('Unsaved work for '+(cp?fullName(cp):'the previous patient')+' kept as a draft.','info');
+    else if(!(await askConfirm('You have unsaved changes for '+(cp?fullName(cp):'the current patient')+' that cannot be kept (not on this clinic list). Switch anyway?')))return;
   }
   const row=activeEntry(id);
   selectPatientForVisit(id);
@@ -2000,6 +2268,8 @@ async function startClinicReview(id){
   }
   if(row&&row.status==='not started'){row.status='in progress';row.reviewer=prefs.userName||'';touch(row);touchClinic();markDirty();}
   state.visitFormDirty=false;
+  if(row&&row.draft&&(!v||(row.draft.savedAt||0)>(v.updatedAt||0)))restoreDraft(row.draft);
+  else if(row&&!v&&row.draftBloods)fillDraftBloods(row.draftBloods);
   renderClinicTable();renderLetter();renderPatientHeader();
   scrollToReview();
   setTimeout(()=>{const t=v?el('visitNextReview'):el('visitBloodDate');if(t)t.focus({preventScroll:true});},350);
@@ -2022,21 +2292,25 @@ function updateDoseDecisionUI(fromUser){
   document.querySelectorAll('.decision-chip').forEach(c=>c.classList.toggle('active',c.getAttribute('data-value')===d));
   el('bloodFieldsWrap').classList.toggle('hidden',nb);
   el('regimenFieldsWrap').classList.toggle('hidden',nb);
-  el('questionnaireFieldsWrap').classList.toggle('hidden',nb);
   el('rebookNotice').classList.toggle('hidden',!nb);
   el('rebookExtra').textContent=nb&&p&&(p.missedBloodsConsecutive||0)>=1?'This will be missed bloods #'+((p.missedBloodsConsecutive||0)+1)+' in a row — consider returning to the consultant clinic.':'';
   el('visitRegimenWrap').classList.toggle('hidden',d==='stop');
+  el('rxNowWrap').classList.toggle('hidden',!RX_DECISIONS.includes(d));
   if(fromUser&&p&&!state.viewingVisitId){
     const reg=el('visitRegimenAfterReview');
     if(d==='continue'&&!reg.value)reg.value=p.currentHydroxy||'';
-    else if((d==='increase'||d==='reduce')&&reg.value===(p.currentHydroxy||'')){reg.value='';setTimeout(()=>reg.focus(),0);}
+    else if((d==='increase'||d==='reduce')&&reg.value===(p.currentHydroxy||'')){reg.value='';}
+    if(d==='increase'||d==='reduce')showBuilder(true);else if(!RX_DECISIONS.includes(d))showBuilder(false);
     if(d&&(!el('visitNextReview').value||state.nextReviewAuto)){
       el('visitNextReview').value=addDays(el('visitReviewDate').value||todayISO(),REVIEW_INTERVALS[d]||90);
       state.nextReviewAuto=true;
     }
   }
   const rh=el('regimenHint');
-  rh.textContent=d==='continue'?'Pre-filled with the current regimen.':(d==='increase'||d==='reduce')?'Type the new regimen or pick from the list.':'';
+  rh.textContent=d==='continue'?'Pre-filled with the current regimen – edit if the wording changes.':(d==='increase'||d==='reduce')?'Pick the new dose in the builder below, or type it.':'';
+  if(!RX_DECISIONS.includes(d))el('doseBuilder').classList.add('hidden');
+  el('dbOpenBtn').classList.toggle('hidden',!RX_DECISIONS.includes(d)||!el('doseBuilder').classList.contains('hidden')||!!state.viewingVisitId);
+  renderSaveBackHint();
   const nh=el('nextReviewHint');
   nh.textContent=state.nextReviewAuto&&d?'Auto-set to '+Math.round((REVIEW_INTERVALS[d]||90)/7)+' weeks for "'+el('visitDoseDecision').selectedOptions[0].textContent+'" — change if needed.':'';
   renderAlerts();
@@ -2068,7 +2342,7 @@ function readVisit(){
 }
 /* Applies a visit's effect on the patient record. Stores the "before" snapshot so re-saving an edited visit never double-applies. */
 function applyVisitToPatient(patient,visit){
-  visit.patientBefore={currentHydroxy:patient.currentHydroxy||'',hcActive:patient.hcActive!==false,missedBloods:patient.missedBloods||0,missedBloodsConsecutive:patient.missedBloodsConsecutive||0};
+  visit.patientBefore={hcBuilder:patient.hcBuilder||null,currentHydroxy:patient.currentHydroxy||'',hcActive:patient.hcActive!==false,missedBloods:patient.missedBloods||0,missedBloodsConsecutive:patient.missedBloodsConsecutive||0};
   const d=visit.doseDecision;
   if(d==='no_bloods'){
     patient.missedBloodsConsecutive=(patient.missedBloodsConsecutive||0)+1;patient.missedBloods=(patient.missedBloods||0)+1;
@@ -2076,7 +2350,7 @@ function applyVisitToPatient(patient,visit){
     patient.missedBloodsConsecutive=0;
     const prev=patient.currentHydroxy||'';
     if(d==='stop'){patient.hcActive=false;patient.currentHydroxy='';}
-    else if(visit.regimenAfterReview){patient.currentHydroxy=visit.regimenAfterReview;patient.hcActive=true;}
+    else if(visit.regimenAfterReview){if(visit.regimenAfterReview!==patient.currentHydroxy)patient.hcBuilder=visit.hcBuilder||null;patient.currentHydroxy=visit.regimenAfterReview;patient.hcActive=true;}
     patient.regimenHistory=arr(patient.regimenHistory).filter(h=>h.visitId!==visit.id);
     patient.regimenHistory.push({visitId:visit.id,date:visit.reviewDate,previousDose:prev,newDose:d==='stop'?'STOPPED':(patient.currentHydroxy||''),decision:d,reviewer:visit.reviewerSignature||'',notes:''});
   }
@@ -2112,6 +2386,11 @@ async function saveVisit(markComplete){
     visit=Object.assign({id:uid('visit'),createdAt:Date.now(),doseAtVisit:p.currentHydroxy||''},data);
     state.visits.unshift(visit);
   }
+  visit.hcBuilder=state.dbTouched&&state.db&&el('visitRegimenAfterReview').value.trim()===dbText(state.db)?JSON.parse(JSON.stringify(state.db)):null;
+  const wasDone=!!visit.rxDone;
+  visit.rxRequired=rxNeeded(visit.doseDecision,visit.regimenAfterReview);
+  const rxNow=visit.rxRequired&&el('visitRxNow').checked;
+  if(rxNow!==wasDone)setRxDone(visit,rxNow);
   visit.alertsTriggered=evaluateClinicalAlerts({hb:visit.haemoglobin,hct:visit.haematocrit,wcc:visit.whiteCellCount,neut:visit.neutrophilCount,plt:visit.plateletCount},diagnosisDisplay(p)).map(a=>a.id);
   applyVisitToPatient(p,visit);
   touch(visit);
@@ -2125,13 +2404,16 @@ async function saveVisit(markComplete){
     touch(row);touchClinic();
   }
   state.editingVisitId=visit.id;el('editingNotice').classList.remove('hidden');
-  state.visitFormDirty=false;
+  if(row){row.draft=null;row.draftBloods=null;}
+  ['draftNotice','bulkNotice'].forEach(i=>el(i).classList.add('hidden'));el('draftStatus').textContent='';
+  state.visitFormDirty=false;clearTimeout(state.draftTimer);
   markDirty();
   let letterPath=null;
   try{letterPath=await saveLetterToFolder(p,visit);if(letterPath){visit.letterFile=letterPath;}}
   catch(e){console.warn('letter',e);toast('Visit saved, but the letter could not be written to OneDrive: '+e.message,'warning');}
   renderAll();
-  toast((markComplete?fullName(p)+' completed.':'Visit saved.')+(letterPath?' Letter saved to OneDrive.':''),'success');
+  const doseChanged=visit.patientBefore&&visit.regimenAfterReview&&visit.regimenAfterReview!==visit.patientBefore.currentHydroxy;
+  toast((markComplete?fullName(p)+' completed.':'Visit saved.')+(doseChanged?' Dose updated in the patient record.':'')+(visit.rxRequired&&!visit.rxDone?' Prescription added to the list.':'')+(letterPath?' Letter saved to OneDrive.':''),'success');
   if(markComplete&&row)goNextPatient(p.id);
 }
 function goNextPatient(fromId){
@@ -2165,7 +2447,7 @@ async function archiveClinic(){
       return{patientId:e.patientId,visitId:e.visitId,status:e.status,name:p?fullName(p):'',hospitalNumber:p?p.hospitalNumber:'',doseDecision:v?v.doseDecision||'':'',regimenAfterReview:v?v.regimenAfterReview||'':'',doseDecisionSummary:v?formatDecisionSummary(v.doseDecision,v.regimenAfterReview):''};})
   }));
   doneRows.forEach(e=>{e.removed=true;touch(e);});touchClinic();
-  if(!activeEntries().length){state.deleted[state.clinic.id]=Date.now();state.clinic=newClinic(false);}
+  if(!activeEntries().length){state.deleted[state.clinic.id]=Date.now();state.clinic=newClinic(false,state.clinic.date);}
   clearVisitFields();markDirty();renderAll();toast('Clinic archived.','success');
 }
 function openArchivedVisit(id){
@@ -2195,10 +2477,190 @@ function renderHistory(){
     const mix=['continue','increase','reduce','stop','no_bloods'].map(t=>cnt(t)?'<span class="chip">'+esc(DECISION_LABEL[t])+' '+cnt(t)+'</span>':'').join(' ');
     return'<details class="archive-session" style="animation-delay:'+Math.min(k*40,400)+'ms"><summary>'+
       '<div class="date-tile"><b>'+(d?d.getDate():'–')+'</b><span>'+(d?d.toLocaleDateString('en-GB',{month:'short',year:'2-digit'}):'')+'</span></div>'+
-      '<div class="session-meta"><div class="t">'+esc(s.title)+'</div><div class="small">'+esc(formatDate(s.date))+(s.archivedBy?' · archived by '+esc(s.archivedBy):'')+'</div><div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:6px;"><span class="session-count">'+s.patients.length+' patient'+(s.patients.length!==1?'s':'')+'</span>'+mix+'</div></div>'+
+      '<div class="session-meta"><div class="t">'+esc(s.title)+'</div><div class="small">'+esc(formatDate(s.date))+(s.archivedBy?' · archived by '+esc(s.archivedBy):'')+'</div><div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:6px;"><span class="session-count">'+s.patients.length+' patient'+(s.patients.length!==1?'s':'')+'</span>'+mix+(()=>{const n=s.patients.filter(x=>{const v=state.visits.find(y=>y.id===x.visitId);return v&&v.rxRequired&&!v.rxDone;}).length;return n?'<span class="chip rx">💊 '+n+' Rx to write</span>':'';})()+'</div></div>'+
       '<div style="display:flex;flex-direction:column;gap:6px;"><button class="btn sm soft" data-act="pack-archive" data-id="'+esc(s.id)+'">📄 Pack</button><button class="btn sm danger" data-act="del-archive" data-id="'+esc(s.id)+'">Delete</button></div></summary><div class="session-body">'+
       s.patients.map(x=>'<div class="list-row"><div class="row-main">'+avatarHTML({firstName:(x.name||'?').split(' ')[0],lastName:(x.name||'').split(' ').slice(-1)[0],hospitalNumber:x.hospitalNumber})+'<div style="min-width:0;"><strong>'+esc(x.name)+'</strong> <span class="small">'+esc(x.hospitalNumber)+'</span>'+(x.doseDecisionSummary?'<div class="small">'+esc(x.doseDecisionSummary)+'</div>':'')+'</div></div><div style="white-space:nowrap;">'+(x.visitId?'<button class="btn sm soft" data-act="open-visit" data-id="'+esc(x.visitId)+'">Open</button> <button class="btn sm" data-act="letter-visit" data-id="'+esc(x.visitId)+'">⬇</button>':'')+'</div></div>').join('')+
       '</div></details>';}).join('');
+}
+
+/* ================================================================
+   DRAFTS – unsaved review work is kept automatically (and shared)
+   ================================================================ */
+const DRAFT_FIELDS=['visitReviewDate','visitBloodDate','visitHaemoglobin','visitHaematocrit','visitWcc','visitNeutrophils','visitPlatelets','visitDoseDecision','visitRegimenAfterReview','visitNextReview','visitReviewerSignature','visitVenesectionVolume'];
+function scheduleDraft(){clearTimeout(state.draftTimer);state.draftTimer=setTimeout(saveDraft,1000);}
+function saveDraft(){
+  clearTimeout(state.draftTimer);
+  if(!state.visitFormDirty||state.viewingVisitId||!state.selectedPatientId)return false;
+  const e=activeEntry(state.selectedPatientId);if(!e)return false;
+  const d={savedAt:Date.now(),by:prefs.userName||'',venesection:el('visitVenesection').checked,rxNow:el('visitRxNow').checked,nextAuto:!!state.nextReviewAuto,db:state.dbTouched?JSON.parse(JSON.stringify(state.db)):null};
+  DRAFT_FIELDS.forEach(id=>d[id]=el(id).value);
+  e.draft=d;touch(e);markDirty();
+  el('draftStatus').textContent='📝 Draft kept '+new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+  return true;
+}
+function restoreDraft(d){
+  DRAFT_FIELDS.forEach(id=>{if(d[id]!=null)el(id).value=d[id];});
+  el('visitVenesection').checked=!!d.venesection;el('visitRxNow').checked=!!d.rxNow;state.nextReviewAuto=!!d.nextAuto;
+  if(d.db){state.db=d.db;state.dbTouched=true;}
+  updateConditionalFields();updateDoseDecisionUI(false);flagBloodCounts();
+  if(d.db&&RX_DECISIONS.includes(d.visitDoseDecision))showBuilder(true);
+  state.visitFormDirty=true;
+  const n=el('draftNotice');n.classList.remove('hidden');
+  n.textContent='📝 Restored unsaved work from '+new Date(d.savedAt).toLocaleString('en-GB',{dateStyle:'short',timeStyle:'short'})+(d.by?' ('+d.by+')':'')+'. Save when ready.';
+}
+function clearDraft(pid){const e=activeEntry(pid);if(e&&(e.draft||e.draftBloods)){e.draft=null;e.draftBloods=null;touch(e);}}
+
+/* ================================================================
+   DOSE BUILDER
+   ================================================================ */
+const DAYS=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+const DOSES=[500,1000,1500,2000,2500,3000];
+function capsTxt(mg){const n=mg/500;return n+' capsule'+(n!==1?'s':'');}
+function mgTxt(mg){return mg+'mg ('+capsTxt(mg)+')';}
+function listJoin(a){return a.length<2?a.join(''):a.slice(0,-1).join(', ')+' and '+a[a.length-1];}
+function dbText(d){
+  let t;
+  if(d.mode==='daily')t='Hydroxycarbamide '+mgTxt(d.daily)+' once daily';
+  else if(d.mode==='alt')t=d.altB?'Hydroxycarbamide '+mgTxt(d.altA)+' and '+mgTxt(d.altB)+' on alternate days':'Hydroxycarbamide '+mgTxt(d.altA)+' on alternate days';
+  else{
+    const g={};d.week.forEach((mg,i)=>{(g[mg]=g[mg]||[]).push(DAYS[i]);});
+    const keys=Object.keys(g).map(Number).sort((a,b)=>b-a);
+    if(keys.length===1)t=keys[0]?'Hydroxycarbamide '+mgTxt(keys[0])+' once daily':'No hydroxycarbamide';
+    else t='Hydroxycarbamide '+keys.map(mg=>(mg?mgTxt(mg)+' on ':'none on ')+listJoin(g[mg])).join('; ');
+  }
+  if((d.instr||'').trim())t+='. '+stripDot(d.instr.trim());
+  return t;
+}
+function dbWeekly(d){return d.mode==='daily'?d.daily*7:d.mode==='alt'?(d.altA+d.altB)*3.5:d.week.reduce((a,b)=>a+b,0);}
+function weeklyFromText(t){
+  t=String(t||'').toLowerCase();if(!t)return null;
+  const ns=[...t.matchAll(/(\d{3,4})\s*mg/g)].map(x=>+x[1]);
+  if(/alternate/.test(t)&&ns.length)return(ns[0]+(ns[1]||0))*3.5;
+  if(ns.length===1&&/(once daily|daily|every day|\bod\b)/.test(t)&&!/(monday|tuesday|wednesday|friday|weekend|mon|alternate)/.test(t))return ns[0]*7;
+  return null;
+}
+function dbDefault(p){
+  if(p&&p.hcBuilder)return JSON.parse(JSON.stringify(p.hcBuilder));
+  const w=p?weeklyFromText(p.currentHydroxy):null;
+  const daily=w&&w%7===0&&DOSES.includes(w/7)?w/7:500;
+  return{mode:'daily',daily,altA:1000,altB:500,week:Array(7).fill(daily),instr:''};
+}
+function renderBuilder(){
+  const d=state.db;if(!d)return;
+  document.querySelectorAll('#dbModes [data-dbmode]').forEach(b=>b.classList.toggle('active',b.getAttribute('data-dbmode')===d.mode));
+  el('dbDaily').classList.toggle('hidden',d.mode!=='daily');el('dbAlt').classList.toggle('hidden',d.mode!=='alt');el('dbWeek').classList.toggle('hidden',d.mode!=='week');
+  document.querySelectorAll('#doseBuilder .dose-chips').forEach(c=>{
+    const slot=c.getAttribute('data-slot'),opts=slot==='altB'?[0].concat(DOSES):DOSES;
+    c.innerHTML=opts.map(mg=>'<button type="button" class="dose-chip'+(d[slot]===mg?' active':'')+'" data-slot="'+slot+'" data-mg="'+mg+'">'+(mg?mg+' mg':'None')+'<small>'+(mg?capsTxt(mg):'no dose')+'</small></button>').join('');
+  });
+  el('dbWeekGrid').innerHTML=DAYS.map((day,i)=>'<label>'+day.slice(0,3)+'<select data-day="'+i+'">'+[0].concat(DOSES).map(mg=>'<option value="'+mg+'"'+(d.week[i]===mg?' selected':'')+'>'+(mg?mg+' mg':'None')+'</option>').join('')+'</select></label>').join('');
+  if(document.activeElement!==el('dbInstr'))el('dbInstr').value=d.instr||'';
+  const p=currentPatient(),nw=dbWeekly(d);
+  const cw=p?(p.hcBuilder&&p.currentHydroxy&&p.currentHydroxy===dbText(p.hcBuilder)?dbWeekly(p.hcBuilder):weeklyFromText(el('visitCurrentHydroxy').value)):null;
+  let ch='';
+  if(cw){const pct=Math.round((nw-cw)/cw*100);ch=' <span class="chip '+(pct>0?'up':pct<0?'down':'')+'">'+(pct>0?'↑ +':pct<0?'↓ ':'= ')+pct+'% vs current '+cw.toLocaleString()+' mg/week</span>';}
+  el('dbSummary').innerHTML='Weekly total: '+nw.toLocaleString()+' mg'+ch;
+}
+function applyBuilder(){
+  state.dbTouched=true;
+  el('visitRegimenAfterReview').value=dbText(state.db);
+  renderBuilder();
+  el('visitRegimenAfterReview').dispatchEvent(new Event('input',{bubbles:true}));
+}
+function showBuilder(show){
+  el('doseBuilder').classList.toggle('hidden',!show);
+  const d=el('visitDoseDecision').value;
+  el('dbOpenBtn').classList.toggle('hidden',show||!RX_DECISIONS.includes(d)||!!state.viewingVisitId);
+  if(show)renderBuilder();
+}
+function renderSaveBackHint(){
+  const p=currentPatient(),d=el('visitDoseDecision').value,r=el('visitRegimenAfterReview').value.trim(),h=el('dbSaveHint');
+  const show=p&&!state.viewingVisitId&&(d==='increase'||d==='reduce'||(d==='continue'&&r&&r!==(p.currentHydroxy||'')))&&r;
+  h.classList.toggle('hidden',!show);
+  if(show)h.textContent='✓ When you save, '+fullName(p)+'’s record will be updated to this regimen (and added to the Prescriptions list).';
+}
+
+/* ================================================================
+   PRESCRIPTIONS
+   ================================================================ */
+const RX_DECISIONS=['continue','increase','reduce'];
+function rxNeeded(decision,regimen){return RX_DECISIONS.includes(decision)&&!!String(regimen||'').trim();}
+function rxItems(){
+  return state.visits.filter(v=>v.rxRequired&&patientById(v.patientId)).map(v=>({v,p:patientById(v.patientId),group:v.clinicDate||v.reviewDate||''}));
+}
+function rxOutstanding(){return rxItems().filter(x=>!x.v.rxDone);}
+function rxExtraLines(p){
+  const out=[];
+  if(p.supplyRoute==='WP10 from haematology'&&p.thrombosisType&&p.thrombosisType!=='None')out.push(thrombosisMedDisplay(p)+' (WP10 from haematology)');
+  return out;
+}
+function rxChangeChip(v){
+  if(v.doseDecision==='increase')return'<span class="chip up">↑ Increased</span>';
+  if(v.doseDecision==='reduce')return'<span class="chip down">↓ Reduced</span>';
+  return'<span class="chip">✓ Unchanged</span>';
+}
+function clinicTitleFor(date){
+  if(state.clinic.date===date)return state.clinic.title||'MPN Virtual Clinic';
+  const a=state.archivedClinics.find(c=>c.date===date);return a?a.title:'Reviews';
+}
+function renderRx(){
+  const all=rxItems(),f=state.rxFilter||'todo',cf=state.rxClinic||'';
+  const todo=all.filter(x=>!x.v.rxDone).length;
+  const nc=el('navRxCount');if(nc){nc.textContent=todo;nc.classList.toggle('hidden',!todo);}
+  if(!el('rxList'))return;
+  el('rxnTodo').textContent=todo;el('rxnDone').textContent=all.length-todo;
+  const groups=[...new Set(all.map(x=>x.group))].sort().reverse();
+  const sel=el('rxClinicFilter');
+  sel.innerHTML='<option value="">All clinics</option>'+groups.map(g=>'<option value="'+esc(g)+'"'+(g===cf?' selected':'')+'>'+esc(formatDate(g)+' – '+clinicTitleFor(g))+' ('+all.filter(x=>x.group===g&&!x.v.rxDone).length+' to write)</option>').join('');
+  const shown=all.filter(x=>(f==='all'||(f==='done'?x.v.rxDone:!x.v.rxDone))&&(!cf||x.group===cf));
+  el('rxCount').textContent=shown.length+' prescription'+(shown.length!==1?'s':'');
+  el('rxPrintTitle').textContent=(cf?formatDate(cf)+' – '+clinicTitleFor(cf):'all clinics')+' ('+(f==='todo'?'still to write':f==='done'?'written':'all')+')';
+  const gs=[...new Set(shown.map(x=>x.group))].sort().reverse();
+  el('rxList').innerHTML=gs.map(g=>{
+    const items=shown.filter(x=>x.group===g).sort((a,b)=>(a.p.lastName||'').localeCompare(b.p.lastName||''));
+    const left=items.filter(x=>!x.v.rxDone).length;
+    return'<div class="card rx-group"><div class="rx-group-head"><h3>📅 '+esc(formatDate(g))+' – '+esc(clinicTitleFor(g))+'</h3><span class="small">'+left+' still to write</span>'+(left?'<button class="btn success sm" data-act="rx-all" data-id="'+esc(g)+'">✓ Mark all written</button>':'')+'</div>'+
+      items.map(({v,p})=>'<div class="rx-row'+(v.rxDone?' done':'')+'">'+
+        '<button class="rx-tick" data-act="rx-toggle" data-id="'+esc(v.id)+'" title="'+(v.rxDone?'Mark as not written':'Mark as written')+'">'+(v.rxDone?'✓':'')+'</button>'+
+        '<div class="row-main">'+avatarHTML(p)+'<div style="min-width:0;"><strong>'+esc(fullName(p))+'</strong><div class="small">'+esc(p.hospitalNumber)+(p.dob?' · DOB '+esc(formatDate(p.dob)):'')+(p.nhsNumber?' · NHS '+esc(p.nhsNumber):'')+'</div>'+(p.address?'<div class="small">'+esc(p.address.replace(/\n/g,', '))+'</div>':'')+'</div></div>'+
+        '<div><div class="rx-drug">'+esc(v.regimenAfterReview)+'</div><div class="rx-extra">'+rxChangeChip(v)+(v.doseDecision!=='continue'&&v.currentHydroxy?' <span class="small">was: '+esc(v.currentHydroxy)+'</span>':'')+'</div>'+rxExtraLines(p).map(l=>'<div class="rx-extra">+ '+esc(l)+'</div>').join('')+'</div>'+
+        '<div class="small">'+(v.rxDone?'✓ Written'+(v.rxDoneBy?' by '+esc(v.rxDoneBy):'')+(v.rxDoneAt?'<br>'+esc(new Date(v.rxDoneAt).toLocaleString('en-GB',{dateStyle:'short',timeStyle:'short'})):''):'Reviewed by '+esc(v.reviewerSignature||'–'))+'</div>'+
+      '</div>').join('')+'</div>';
+  }).join('')||'<div class="card empty"><div class="big-ic">'+(f==='todo'?'🎉':'💊')+'</div><h4>'+(f==='todo'?'No prescriptions waiting':'Nothing to show')+'</h4><div>'+(f==='todo'?'Every prescription from your reviews has been written.':'Prescriptions appear here when a review continues, increases or reduces the dose.')+'</div></div>';
+}
+function setRxDone(v,done){
+  v.rxDone=!!done;v.rxDoneBy=done?(prefs.userName||''):'';v.rxDoneAt=done?Date.now():0;touch(v);
+}
+function rxToggle(id){const v=state.visits.find(x=>x.id===id);if(!v)return;setRxDone(v,!v.rxDone);markDirty();renderAll();}
+function rxAll(group){const items=rxItems().filter(x=>x.group===group&&!x.v.rxDone);items.forEach(x=>setRxDone(x.v,true));markDirty();renderAll();toast(items.length+' prescription'+(items.length!==1?'s':'')+' marked as written.','success');}
+function rxDocBody(items,title){
+  const td='border:1px solid #888;padding:4pt 6pt;font-size:10pt;vertical-align:top;';
+  return'<div style="font-family:Arial,sans-serif;"><h1 style="font-size:14pt;margin:0 0 6pt 0;">Hydroxycarbamide prescriptions – '+esc(title)+'</h1><p style="font-size:9.5pt;margin:0 0 8pt 0;">Generated '+esc(new Date().toLocaleString('en-GB'))+(prefs.userName?' by '+esc(prefs.userName):'')+'</p>'+
+    '<table style="border-collapse:collapse;width:100%;"><tr>'+['✓','Patient','Hospital no / DOB / NHS','Prescription','Change','Reviewer'].map(h=>'<th style="'+td+'background:#eee;text-align:left;">'+h+'</th>').join('')+'</tr>'+
+    items.map(({v,p})=>'<tr><td style="'+td+'">'+(v.rxDone?'✓':'☐')+'</td><td style="'+td+'"><b>'+esc(fullName(p))+'</b>'+(p.address?'<br>'+esc(p.address).replace(/\n/g,'<br>'):'')+'</td><td style="'+td+'">'+esc(p.hospitalNumber)+(p.dob?'<br>DOB '+esc(formatDate(p.dob)):'')+(p.nhsNumber?'<br>NHS '+esc(p.nhsNumber):'')+'</td><td style="'+td+'"><b>'+esc(v.regimenAfterReview)+'</b>'+rxExtraLines(p).map(l=>'<br>+ '+esc(l)).join('')+'</td><td style="'+td+'">'+esc(v.doseDecision==='increase'?'Increased':v.doseDecision==='reduce'?'Reduced':'Unchanged')+(v.doseDecision!=='continue'&&v.currentHydroxy?'<br><span style="font-size:9pt;">was: '+esc(v.currentHydroxy)+'</span>':'')+'</td><td style="'+td+'">'+esc(v.reviewerSignature||'')+'</td></tr>').join('')+'</table></div>';
+}
+function rxShownItems(){
+  const f=state.rxFilter||'todo',cf=state.rxClinic||'';
+  return rxItems().filter(x=>(f==='all'||(f==='done'?x.v.rxDone:!x.v.rxDone))&&(!cf||x.group===cf)).sort((a,b)=>b.group.localeCompare(a.group)||(a.p.lastName||'').localeCompare(b.p.lastName||''));
+}
+async function rxWord(){
+  const items=rxShownItems();if(!items.length){toast('No prescriptions in this list.','info');return;}
+  const title=state.rxClinic?formatDate(state.rxClinic):'all clinics';
+  const doc=wordDoc(rxDocBody(items,title),'Prescriptions');
+  const name='_PRESCRIPTIONS_'+(state.rxClinic||todayISO())+'.doc';
+  if(state.fsStatus==='connected'){await writeFile(['Letters',state.rxClinic||todayISO()],name,doc);toast('Prescription list saved to OneDrive: Letters/'+(state.rxClinic||todayISO())+'/'+name,'success');}
+  else downloadText(doc,name.slice(1),'application/msword');
+}
+function rxPrint(){
+  switchView('rx');document.body.classList.add('print-rx');
+  const done=()=>{document.body.classList.remove('print-rx');window.removeEventListener('afterprint',done);};
+  window.addEventListener('afterprint',done);window.print();setTimeout(done,1500);
+}
+function renderDashRx(){
+  const items=rxOutstanding().sort((a,b)=>b.group.localeCompare(a.group));
+  el('dashRx').innerHTML=items.length?'<div style="display:flex;align-items:baseline;gap:8px;margin-bottom:6px;"><span class="metric-value" style="color:var(--amber);">'+items.length+'</span><span class="small">still to write</span></div>'+
+    items.slice(0,5).map(({v,p})=>'<div class="list-row"><div style="min-width:0;"><strong>'+esc(fullName(p))+'</strong><div class="small" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:230px;">'+esc(v.regimenAfterReview)+'</div></div><button class="btn sm ghost" data-act="rx-toggle" data-id="'+esc(v.id)+'" title="Mark written">☐</button></div>').join('')+(items.length>5?'<div class="small" style="padding-top:6px;">…and '+(items.length-5)+' more</div>':''):
+    '<div class="empty" style="padding:14px;"><div class="big-ic" style="font-size:28px;">🎉</div><div>All prescriptions written.</div></div>';
 }
 
 /* ================================================================
@@ -2232,6 +2694,8 @@ async function writePack(title,date,rows,silent){
   if(state.fsStatus==='connected'){
     await writeFile(['Letters',date],'_ALL_LETTERS_'+date+'.doc',letters);
     await writeFile(['Letters',date],'_CLINIC_SUMMARY_'+date+'.doc',summary);
+    const rxs=rows.filter(r=>r.visit.rxRequired).map(r=>({v:r.visit,p:r.patient}));
+    if(rxs.length)await writeFile(['Letters',date],'_PRESCRIPTIONS_'+date+'.doc',wordDoc(rxDocBody(rxs,formatDate(date)+' – '+title),'Prescriptions '+date));
     toast('Secretary pack saved to OneDrive: Letters/'+date+'/ ('+rows.length+' letters).','success');
   }else if(!silent){
     downloadText(letters,'MPN_letters_'+date+'.doc','application/msword');
@@ -2472,14 +2936,7 @@ function renderDashboard(){
   const recent=state.visits.filter(v=>patientById(v.patientId)).slice().sort((a,b)=>(b.updatedAt||b.createdAt||0)-(a.updatedAt||a.createdAt||0)).slice(0,10);
   el('dashboardActivity').innerHTML=recent.map(v=>{const p=patientById(v.patientId);return'<div class="list-row"><div class="row-main">'+avatarHTML(p)+'<div style="min-width:0;"><strong>'+esc(fullName(p))+'</strong><div class="small">'+esc(DECISION_LABEL[v.doseDecision]||v.doseDecision)+' · '+formatDate(v.reviewDate)+(v.reviewerSignature?' · '+esc(v.reviewerSignature):'')+'</div></div></div><button class="btn sm ghost" data-act="open-visit" data-id="'+esc(v.id)+'">Open</button></div>';}).join('')||'<div class="empty"><div class="big-ic">🕒</div><h4>No visits yet</h4><div>Saved reviews appear here.</div></div>';
 
-  // decision mix last 90 days
-  const since=addDays(today,-90),recentV=state.visits.filter(v=>(v.reviewDate||'')>=since);
-  const cols={continue:'#0f9d58',increase:'#d9480f',reduce:'#2f5bea',stop:'#c2255c',no_bloods:'#7247e8'};
-  const max=Math.max(1,...Object.keys(cols).map(k=>recentV.filter(v=>v.doseDecision===k).length));
-  const bars=el('decisionBars');
-  if(!bars.children.length)bars.innerHTML=Object.keys(cols).map(k=>'<div class="bar-row"><span>'+esc(DECISION_LABEL[k])+'</span><div class="bar"><i data-k="'+k+'" style="background:'+cols[k]+'"></i></div><b data-n="'+k+'">0</b></div>').join('')+'<div class="small" id="barsTotal"></div>';
-  Object.keys(cols).forEach(k=>{const n=recentV.filter(v=>v.doseDecision===k).length;bars.querySelector('[data-k="'+k+'"]').style.width=(n/max*100)+'%';bars.querySelector('[data-n="'+k+'"]').textContent=n;});
-  el('barsTotal').textContent=recentV.length+' reviews · '+recentV.filter(v=>(v.alertsTriggered||[]).length).length+' with clinical alerts';
+  renderDashRx();
 }
 function searchMatches(){
   const term=el('dashboardSearch').value.trim().toLowerCase();if(!term)return[];
@@ -2501,7 +2958,7 @@ function quickReview(id){
 function renderAll(){
   renderSaveIndicator();renderSyncSettings();renderBanner();
   renderDashboard();renderClinicFields();renderClinicTable();renderClinicSearch();
-  renderDatabaseTable();renderHistory();renderSignatures();renderSettingsInputs();
+  renderDatabaseTable();renderHistory();renderSignatures();renderSettingsInputs();renderRx();
   if(state.editingPatientId){const p=patientById(state.editingPatientId);renderRegimenHistoryPanel(p);}
   if(state.selectedPatientId&&!currentPatient())clearVisitFields();
   else{renderLetter();if(state.selectedPatientId){renderSparklines(currentPatient());renderVisitHistoryPanel(currentPatient());}}
@@ -2512,8 +2969,10 @@ function renderAll(){
    THEME
    ================================================================ */
 function applyTheme(){
-  document.documentElement.classList.toggle('dark',prefs.theme==='dark');
-  el('themeToggleBtn').textContent=prefs.theme==='dark'?'☀️':'🌙';
+  if(!['light','dark','black'].includes(prefs.theme))prefs.theme='dark';
+  document.documentElement.classList.toggle('dark',prefs.theme!=='light');
+  document.documentElement.classList.toggle('black',prefs.theme==='black');
+  document.querySelectorAll('#themeSwitch button').forEach(b=>{const on=b.getAttribute('data-theme')===prefs.theme;b.classList.toggle('active',on);b.setAttribute('aria-checked',on);});
   document.documentElement.classList.toggle('sb-collapsed',!!prefs.sidebarCollapsed);
   const ci=el('collapseIcon');if(ci)ci.textContent=prefs.sidebarCollapsed?'»':'«';
 }
@@ -2545,6 +3004,13 @@ function bindEvents(){
       case'quick-review':quickReview(id);break;
       case'new-patient':newPatient();break;
       case'load-demo':loadDemo();break;
+      case'rx-toggle':rxToggle(id);break;
+      case'open-bulk':openBulk();break;
+      case'qa-open':openQuickAdd();break;
+      case'qa-close':el('quickAddWrap').classList.add('hidden');break;
+      case'finish-clinic':archiveClinic();break;
+      case'goto-add':switchView('clinic');el('addPanel').classList.remove('hidden');setTimeout(()=>el('clinicPatientSearch').focus(),100);break;
+      case'rx-all':rxAll(id);break;
       case'open-import':switchView('database');el('importPanel').classList.remove('hidden');break;
       case'close-drawer':closeDrawer();break;
       case'close-import':el('importPanel').classList.add('hidden');break;
@@ -2552,7 +3018,7 @@ function bindEvents(){
     }
   });
   on('saveDatabaseBtn','click',forceSave);
-  on('themeToggleBtn','click',()=>{prefs.theme=prefs.theme==='dark'?'light':'dark';savePrefs();applyTheme();});
+  el('themeSwitch').addEventListener('click',e=>{const b=e.target.closest('[data-theme]');if(!b)return;prefs.theme=b.getAttribute('data-theme');savePrefs();applyTheme();renderAll();});
   on('dashboardSearch','input',()=>{state.searchIdx=0;renderSearchResults();});
   on('dashboardSearch','focus',renderSearchResults);
   on('dashboardSearch','blur',()=>setTimeout(closeSearch,180));
@@ -2563,6 +3029,10 @@ function bindEvents(){
     else if(e.key==='Enter'&&m.length){e.preventDefault();quickReview(m[state.searchIdx||0].id);el('dashboardSearch').blur();}
     else if(e.key==='Escape'){el('dashboardSearch').value='';closeSearch();el('dashboardSearch').blur();}
   });
+  el('rxFilters').addEventListener('click',e=>{const b=e.target.closest('[data-rxf]');if(!b)return;state.rxFilter=b.getAttribute('data-rxf');el('rxFilters').querySelectorAll('.filter-chip').forEach(x=>x.classList.toggle('active',x===b));renderRx();});
+  on('rxClinicFilter','change',()=>{state.rxClinic=el('rxClinicFilter').value;renderRx();});
+  on('rxWordBtn','click',()=>rxWord().catch(e=>toast('Could not save list: '+e.message,'error')));
+  on('rxPrintBtn','click',rxPrint);
   on('collapseBtn','click',()=>{prefs.sidebarCollapsed=!prefs.sidebarCollapsed;savePrefs();applyTheme();setTimeout(fitLetter,300);});
   on('toggleAddPanelBtn','click',()=>{el('addPanel').classList.toggle('hidden');if(!el('addPanel').classList.contains('hidden'))el('clinicPatientSearch').focus();});
   on('toggleImportBtn','click',()=>el('importPanel').classList.toggle('hidden'));
@@ -2574,6 +3044,19 @@ function bindEvents(){
   on('dashAddDueBtn','click',()=>{addDueToClinic();});
   on('databaseSearch','input',renderDatabaseTable);
   on('clinicPatientSearch','input',renderClinicSearch);
+  on('clinicPatientSearch','keydown',e=>{
+    if(e.key!=='Enter')return;e.preventDefault();
+    const term=el('clinicPatientSearch').value.trim().toLowerCase();if(!term)return;
+    const m=state.patients.filter(p=>(fullName(p)+' '+p.hospitalNumber+' '+(p.nhsNumber||'')).toLowerCase().includes(term));
+    const free=m.filter(p=>!activeEntry(p.id));
+    if(m.length===0)openQuickAdd();
+    else if(free.length===1){addPatientToClinic(free[0].id);el('clinicPatientSearch').value='';renderClinicSearch();}
+  });
+  on('qaSaveBtn','click',quickAddSave);
+  el('quickAddWrap').addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.tagName==='INPUT'){e.preventDefault();quickAddSave();}});
+  on('pasteListBtn','click',addFromPastedList);
+  on('bulkMatchBtn','click',bulkMatch);
+  on('bulkApplyBtn','click',bulkApply);
   ['clinicTitle','clinicDate','clinicNotes'].forEach(id=>on(id,'input',onClinicFieldInput));
   on('addDueClinicBtn','click',addDueToClinic);
   on('importClinicListBtn','click',importClinicCSV);
@@ -2588,7 +3071,8 @@ function bindEvents(){
     if(t.classList.contains('mpn10-slider'))updateMpn10Total();
     if(t.id==='visitNextReview'){state.nextReviewAuto=false;el('nextReviewHint').textContent='';}
     if(['visitHaemoglobin','visitHaematocrit','visitWcc','visitNeutrophils','visitPlatelets'].includes(t.id))flagBloodCounts();
-    if(state.selectedPatientId&&!state.viewingVisitId)state.visitFormDirty=true;
+    if(state.selectedPatientId&&!state.viewingVisitId){state.visitFormDirty=true;scheduleDraft();}
+    if(t.id==='visitRegimenAfterReview')renderSaveBackHint();
     renderLetter();
   });
   panel.addEventListener('change',e=>{
@@ -2597,11 +3081,19 @@ function bindEvents(){
     if(t.id==='visitReviewDate'&&state.nextReviewAuto)updateDoseDecisionUI(true);
     if(t.id==='visitQuestionnaireMode'||t.id==='visitVenesection')updateConditionalFields();
     if(t.id==='visitReviewerSignature'&&t.value){prefs.lastReviewer=t.value;savePrefs();}
-    if(state.selectedPatientId&&!state.viewingVisitId)state.visitFormDirty=true;
+    if(state.selectedPatientId&&!state.viewingVisitId){state.visitFormDirty=true;scheduleDraft();}
     renderLetter();
   });
   on('parseBloodsBtn','click',applyPastedBloods);
-  on('clearVisitBtn','click',async()=>{if(state.visitFormDirty&&!(await askConfirm('Discard unsaved changes?')))return;clearVisitFields();});
+  on('dbOpenBtn','click',()=>showBuilder(true));
+  on('dbCloseBtn','click',()=>showBuilder(false));
+  el('doseBuilder').addEventListener('click',e=>{
+    const m=e.target.closest('[data-dbmode]');if(m){state.db.mode=m.getAttribute('data-dbmode');applyBuilder();return;}
+    const c=e.target.closest('.dose-chip');if(c){state.db[c.getAttribute('data-slot')]=+c.getAttribute('data-mg');applyBuilder();}
+  });
+  el('doseBuilder').addEventListener('change',e=>{const sd=e.target.closest('[data-day]');if(sd){state.db.week[+sd.getAttribute('data-day')]=+sd.value;applyBuilder();}});
+  on('dbInstr','input',()=>{state.db.instr=el('dbInstr').value;applyBuilder();});
+  on('clearVisitBtn','click',async()=>{const pid=state.selectedPatientId,e=pid&&activeEntry(pid);if((state.visitFormDirty||(e&&e.draft))&&!(await askConfirm('Discard the unsaved changes for this patient?')))return;if(pid&&e&&e.draft){e.draft=null;touch(e);markDirty();}clearVisitFields();});
   on('saveVisitBtn','click',()=>saveVisit(false));
   on('markCompleteBtn','click',()=>saveVisit(true));
   on('downloadLetterBtn','click',()=>downloadVisitLetter(null));
@@ -2634,21 +3126,22 @@ function bindEvents(){
 
   // Keyboard shortcuts
   document.addEventListener('keydown',e=>{
-    if(e.key==='Escape'&&el('patientDrawer').classList.contains('open')){closeDrawer();return;}
+    if(e.key==='Escape'&&(el('patientDrawer').classList.contains('open')||el('bulkDrawer').classList.contains('open'))){closeDrawer();return;}
     const mod=e.ctrlKey||e.metaKey;if(!mod)return;
     if(e.key==='k'||e.key==='K'){e.preventDefault();el('dashboardSearch').focus();el('dashboardSearch').select();renderSearchResults();return;}
     const inClinic=el('view-clinic').classList.contains('active');
-    if(e.key==='s'||e.key==='S'){e.preventDefault();if(inClinic&&state.selectedPatientId&&!state.viewingVisitId)saveVisit(false);else forceSave();}
+    if(e.key==='s'||e.key==='S'){e.preventDefault();if(inClinic&&state.selectedPatientId&&!state.viewingVisitId&&el('visitDoseDecision').value)saveVisit(false);else forceSave();}
     else if(e.key==='Enter'&&inClinic&&state.selectedPatientId){e.preventDefault();saveVisit(true);}
     else if((e.key==='p'||e.key==='P')&&inClinic){e.preventDefault();printLetter();}
   });
   window.addEventListener('beforeunload',e=>{
-    if(state.visitFormDirty||(state.dirty&&state.fsStatus==='connected')){
+    saveDraft();
+    if(state.dirty&&state.fsStatus==='connected'){
       if(state.fsStatus==='connected')syncWithFile();
       e.preventDefault();e.returnValue='';
     }
   });
-  document.addEventListener('visibilitychange',()=>{if(!document.hidden)checkForExternalChanges();});
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)checkForExternalChanges();else{saveDraft();if(state.dirty&&state.fsStatus==='connected')syncWithFile();}});
 }
 function printLetter(){
   const p=currentPatient();

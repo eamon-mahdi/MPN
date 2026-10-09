@@ -29,16 +29,39 @@ MPN Clinic/
       Smith_John_A123456.doc             ← each letter, written when you save the visit
       _ALL_LETTERS_2026-10-15.doc        ← all letters in one file for printing
       _CLINIC_SUMMARY_2026-10-15.doc     ← summary for the secretary
+      _PRESCRIPTIONS_2026-10-15.doc      ← every prescription needed from that clinic
   Backups/mpn_clinic_data_YYYY-MM-DD.json  ← automatic daily backup
 ```
 
-## A clinic in five clicks
+## Running a clinic (clinics are on Thursdays)
 
-1. **Virtual Clinic** → **Add patients due by clinic date**.
-2. Click **Review** on the first patient. You can paste the FBC from the lab system to fill the results automatically.
-3. Choose the dose decision. The regimen and next review date fill in for you.
-4. Press **Ctrl+Enter** (Save & complete → next patient). The letter is saved to OneDrive and the next patient opens.
-5. When everyone is done, click **Finish clinic**. The secretary pack is saved and the clinic is archived.
+1. **Virtual Clinic** → **Add due patients**. To add anyone else, click **＋ Add**, then:
+   - search for the patient and press Enter, or
+   - click **New patient** to create someone not yet in the database (it adds them to the clinic straight away), or
+   - paste a list of hospital numbers.
+2. **🧪 Paste bloods for the whole clinic**: paste the lab report or export once, check the matched results, then click **Apply**. Each patient's results fill in automatically when you open them.
+3. Open each patient and click a decision.
+   - **Increase/Reduce** opens the **dose builder**. Click a daily dose, alternate-day doses, or a dose for each day of the week, and add any instructions. It writes the wording for the letter and the prescription.
+   - When you save, the new dose replaces the current regimen in the patient's record.
+4. Tick **Prescription written now** if you have the pad. If not, leave it unticked and it goes on the **Prescriptions** list.
+5. Press **Ctrl+Enter** to complete and move to the next patient. The letter is saved to OneDrive.
+6. When everyone is done, a green banner appears. Click **Finish & archive** to save the secretary pack and start next Thursday's clinic.
+
+Later, open **Prescriptions** to see every prescription still to write, across all clinics. You can tick them off one by one or mark a whole clinic as written, and you can print the list or save it as a Word file.
+
+## Saving
+
+Everything saves automatically within about 2 seconds, including half-finished reviews, which are kept as drafts and restored when you reopen the patient. **💾 Save all** saves immediately. The top bar shows when the last save happened.
+
+Anyone with **edit** access to the shared OneDrive folder can save. People with view-only access will see a message that their changes couldn't be saved.
+
+## Appearance
+
+Use the switch in the top bar to choose **Light**, **Dark** or **Black** (pure black). The choice is remembered on each computer.
+
+## Training
+
+Fictional demo patients are under **Patients → 🧪 Training / demo data** (at the bottom of the page). Remove them before real clinics.
 
 ## Several people working at once
 
