@@ -69,6 +69,7 @@ Saves are merged record by record rather than overwriting the whole file. The ap
 
 ## Troubleshooting
 
+- **Edge says “can't open this folder because it contains system files”.** You picked a folder the browser protects: Desktop, Documents, Downloads, your user folder or the top level of OneDrive. Choose a folder *inside* one of those instead. In the picker, go into OneDrive (or Desktop), click **New folder**, name it `MPN Clinic`, open it and click **Select folder**. Keep `MPN_Virtual_Clinic.html` in that same folder.
 - **The "Connect" button does nothing or reports "not supported".** Use Edge or Chrome. If it still fails, NHS IT policy may block the browser's *File System Access* feature (`FileSystemWriteBlockedForUrls` / `DefaultFileSystemWriteGuardSetting`). Ask IT to allow it for `file://` pages. Until then, the app keeps working in the browser, and you can use **Settings → Export/Import backup** to share data by hand.
 - **The data from the previous version is missing.** The app reads the same browser storage as the old version, so your existing data loads automatically. Connect the folder and it is merged into the shared file.
 

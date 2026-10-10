@@ -609,7 +609,7 @@ html.dark .chip.up{background:#3a1f0f;color:#ffa66b;}
           <div class="card-header"><h3><span class="ic">👋</span> Connect the shared OneDrive folder (once per computer, about 1 minute)</h3></div>
           <ol class="steps">
             <li>Open this file in <strong>Microsoft Edge</strong> (or Chrome) from the synced <strong>OneDrive / Teams folder</strong> on your PC – not the OneDrive website.</li>
-            <li>Click <strong>Connect OneDrive folder</strong> and choose the shared <em>MPN Clinic</em> folder (the one containing this file).</li>
+            <li>Click <strong>Connect OneDrive folder</strong> and choose the shared <em>MPN Clinic</em> folder (the one containing this file). <span class="small">Not the Desktop, Documents or top of OneDrive – Edge blocks those. Use <strong>New folder</strong> in the window to create <em>MPN Clinic</em> if needed.</span></li>
             <li>Click <strong>Edit files / Allow</strong>. Everything now saves automatically and colleagues see the same data.</li>
           </ol>
           <button class="btn primary big" data-act="connect">📁 Connect OneDrive folder</button>
@@ -1492,9 +1492,15 @@ async function initFileSystem(){
 }
 async function connectFolder(){
   if(!isFSSupported()){toast('Open this file in Microsoft Edge or Chrome to use OneDrive sync.','warning');return;}
+  if(!(await askConfirm('In the window that opens, choose a folder called MPN Clinic (the folder this app file is in).\n\nEdge will NOT let you choose your Desktop, Documents, Downloads or the top level of OneDrive – it says “can’t open this folder because it contains system files”.\n\nIf you don’t have an MPN Clinic folder yet: go into OneDrive (or your Desktop), click “New folder” at the top of the window, name it MPN Clinic, open it and click “Select folder”. Then move this app file into that folder too.',{title:'Choose the shared MPN Clinic folder',ok:'Choose folder'})))return;
   let h;
-  try{h=await window.showDirectoryPicker({id:'mpnclinic',mode:'readwrite'});}
-  catch(e){if(e.name!=='AbortError')toast('Could not open folder: '+e.message,'error');return;}
+  try{h=await window.showDirectoryPicker({id:'mpnclinic',mode:'readwrite',startIn:'documents'});}
+  catch(e){
+    if(e.name==='AbortError'){
+      await askConfirm('No folder was connected.\n\nIf Edge said “can’t open this folder because it contains system files”, you picked a protected folder (Desktop, Documents, Downloads or the top of OneDrive). Choose a folder inside one of those instead – e.g. OneDrive → MPN Clinic. Use “New folder” in the window to create it if needed.',{title:'Folder not connected',ok:'Try again'})&&connectFolder();
+    }else toast('Could not open folder: '+e.message,'error');
+    return;
+  }
   let exists=true;try{await h.getFileHandle(FS_FILE,{create:false});}catch(e){exists=false;}
   if(!exists&&!(await askConfirm('No MPN data file was found in "'+h.name+'".\n\nIf this is the correct shared folder (e.g. the first time anyone sets it up), click OK to create the shared database here.\n\nIf colleagues already use the app, click Cancel and choose the folder that contains mpn_clinic_data.json.')))return;
   try{await idbHandle('put',h);}catch(e){}
